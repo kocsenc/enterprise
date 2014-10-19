@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="PayBookApp">
+<head>
+
+    <!-- Styling & CSS -->
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+
+    <!-- Scripts -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="js/core.js"></script>
+
+
+</head>
+<body ng-controller="MainController">
+<div>
+
+    <div class="ui inverted top sidebar" id="topbar">
+        Any content in the world
+        <a class="item">
+            <i class="home icon"></i>
+            Home
+        </a>
+        <a class="active item">
+            <i class="heart icon"></i>
+            Current Section
+        </a>
+        <a class="item">
+            <i class="facebook icon"></i>
+            Like us on Facebook
+        </a>
+        <div class="item">
+            <b>More</b>
+            <div class="menu">
+                <a class="item">About</a>
+                <a class="item">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+    <input type="text" ng-model="yourName" placeholder="Enter a name here">
+
+    <h1>Hello, {{ yourName }}!</h1>
+
+    <button class="ui huge black button">Hello</button>
+</div>
+</body>
+</html>
