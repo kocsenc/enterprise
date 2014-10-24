@@ -6,10 +6,19 @@
 
 var app = angular.module('PayBookApp', []);
 
-app.controller('MainController', function($scope){
+
+app.factory('MainFactory', function ($http) {
+    return {
+        apiurl: "https://apiurl"
+    };
+
+});
+
+
+var mainController = function ($scope) {
     $scope.yourName = null;
 
 
-    $('#topbar').sidebar('show');
+};
 
-});
+app.controller('MainController', mainController);
