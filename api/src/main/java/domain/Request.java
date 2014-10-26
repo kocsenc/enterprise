@@ -26,31 +26,35 @@ public class Request {
   }
 
   public int getRId() {
-    return rid;
+    return this.rid;
   }
 
   public int getSender(){
-    return sender;
+    return this.sender;
   }
 
   public int getReciever(){
-    return reciever;
+    return this.reciever;
   }
 
   public String getDescription(){
-    return description;
+    return this.description;
   }
 
   public Double getAmount(){
-    return amount;
+    return this.amount;
   }
 
   public Date getEndDate(){
-    return endDate;
+    return this.endDate;
   }
 
   public Date getStartDate(){
-    return startDate;
+    return this.startDate;
+  }
+
+  public boolean getFulfilled(){
+    return this.fulfilled;
   }
 
   public void setFulfilled(boolean state){
