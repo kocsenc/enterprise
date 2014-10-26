@@ -2,12 +2,10 @@ package domain;
 
 public class User {
 
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private double wallet;
     private String email;
-
-    public User(){}
 
     public User(int id, String name, double wallet, String email) {
         this.id = id;
@@ -38,13 +36,5 @@ public class User {
 
     public void setEmail(String newEmail) {
         this.email = newEmail;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
