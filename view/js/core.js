@@ -28,6 +28,7 @@ app.factory('MainFactory', ['$http', function ($http) {
 
 app.controller('MainController', ['$scope', 'MainFactory', function ($scope, MainFactory) {
 
+    // Main facotry remote calls
     MainFactory.getUsers().
         success(function (data) {
             $scope.users = data;
@@ -50,6 +51,17 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
                 $scope.mainUser = user;
             }
         });
+    };
+
+
+    $scope.paymentForm = {
+        type: {
+            pay: true,
+            request: false
+        },
+        friendSearch: "",
+        friend: "",
+        amount: ""
     };
 
 
