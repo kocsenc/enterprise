@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
+        classpath('mysql:mysql-connector-java:5.1.33')
     }
 }
 
@@ -27,7 +28,9 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-jdbc")
     testCompile("junit:junit")
+    compile("mysql:mysql-connector-java:5.1.33")
 }
 
 task wrapper(type: Wrapper) {
