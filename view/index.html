@@ -52,7 +52,7 @@
 </div>
 
 <div class="ui grid" style="padding-left: 30px">
-    <div class="row">
+    <div class="row" style="text-align: center">
         <h1 class="ui icon header">
             <i class="circular green money icon"></i>PayBook
             <div class="sub header">Welcome to PayBook</div>
@@ -61,7 +61,7 @@
 
 
     <div class="row">
-        <div class="seven wide column">
+        <div class="five wide column">
             <div class="ui items">
                 <div class="item">
                     <div class="image">
@@ -84,21 +84,37 @@
             </div>
         </div>
 
-        <div class="nine wide column">
-            <div class="ui steps">
-                <div class="ui step">
-                    Type
+        <div class="eleven wide column">
+            <div class="ui segment">
+                <h2>Pay or Request</h2>
+
+                <div class="ui steps">
+                    <div class="ui step">
+                        Type
+                    </div>
+                    <div class="ui active step">
+                        Amount
+                    </div>
+                    <div class="ui step">
+                        Send
+                    </div>
                 </div>
-                <div class="ui active step">
-                    Amount?
+
+                <div class="ui segment" id="amount">
+                    <label>Enter the dollar amount: </label>
+
+                    <div class="ui icon input">
+                        <input placeholder="$0.00" type="text">
+                        <i class="money icon"></i>
+                    </div>
+
+                    <div class="ui buttons">
+                        <div class="ui button">Back</div>
+                        <div class="ui button">Next</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="ui segment">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
-                    Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a,
-                    pede.</p>
-            </div>
         </div>
 
     </div>
