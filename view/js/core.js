@@ -10,13 +10,16 @@ var app = angular.module('PayBookApp', []);
 app.factory('MainFactory', ['$http', function ($http) {
     return {
         baseurl: "http://localhost:8080",
-
-        test: "/test",
+        users: "/users",
+        user: "/user",
 
         getUsers: function () {
-            return $http.get(this.baseurl + this.test);
-
+            return $http.get(this.baseurl + this.users + "/all");
+        },
+        getUserRequests: function (uid) {
+            return $http.get(this.baseurl + this.user + uid + "/requests")
         }
+
 
     };
 
@@ -43,7 +46,7 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
                 $scope.mainUser = user;
             }
         });
-    }
+    };
 
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
