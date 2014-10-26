@@ -85,55 +85,65 @@
         </div>
 
         <div class="eleven wide column">
-            <div class="ui segment">
-                <h2>Pay or Request</h2>
+            <div class="ui form segment">
+                <h2>
+                    <i class="circular money icon"></i>
+                    Pay or Request
+                </h2>
 
-                <div class="ui steps">
-                    <div class="ui active step">
-                        1 Type
-                    </div>
-                    <div class="ui step">
-                        2 Person
-                    </div>
-                    <div class="ui step">
-                        3 Amount
-                    </div>
-                </div>
+                <!--<div class="ui steps">-->
+                <!--<div class="ui active step">-->
+                <!--1 Type-->
+                <!--</div>-->
+                <!--<div class="ui step">-->
+                <!--2 Person-->
+                <!--</div>-->
+                <!--<div class="ui step">-->
+                <!--3 Amount-->
+                <!--</div>-->
+                <!--</div>-->
 
-                <div class="ui segment" id="amount">
-                    <!-- Pay or request? -->
-                    <div class="row">
-                        <div class="ui  buttons">
-                            <div class="ui button">Pay</div>
-                            <div class="ui button">Request</div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                    </div>
-
-
-                    <label>Enter the dollar amount: </label>
-
-                    <div class="ui icon input">
-                        <input placeholder="$0.00" type="text">
-                        <i class="money icon"></i>
-                    </div>
+                <!-- Pay or request? -->
+                <div class="field">
+                    <label>1. Type</label>
 
                     <div class="ui buttons">
-                        <div class="ui button">Back</div>
-                        <div class="ui button">Next</div>
+                        <div class="ui button">Pay</div>
+                        <div class="ui button">Request</div>
                     </div>
                 </div>
+
+                <div class="field">
+                    <label>2. Friends</label>
+
+                    <div class="ui left icon input">
+                        <input placeholder="Search friends..." type="text">
+                        <i class="users icon"></i>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>3. Amount</label>
+
+                    <div class="ui left labeled icon input">
+                        <input placeholder="$0.00" type="text">
+                        <i class="dollar icon"></i>
+                    </div>
+                </div>
+
+                <div class="ui green icon submit button">
+                    <i class="checkmark icon"></i>Send
+                </div>
+
+
             </div>
             <div class="ui segment">
                 <table class="ui basic table">
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Cash money</th>
-                        <th>email</th>
+                        <th>Cash Money</th>
+                        <th>Email</th>
                     </tr>
                     </thead>
                     <tbody>
