@@ -149,7 +149,10 @@
                     <tbody>
                     <tr ng-repeat="user in users">
                         <td>{{user.name}}</td>
-                        <td>{{user.wallet}}</td>
+                        <td>
+                            <i class="dollar icon"></i>
+                            {{user.wallet}}
+                        </td>
                         <td>{{user.email}}</td>
                     </tr>
                     </tbody>
