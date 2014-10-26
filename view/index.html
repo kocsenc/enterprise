@@ -127,6 +127,24 @@
                     </div>
                 </div>
             </div>
+            <div class="ui segment">
+                <table class="ui basic table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Cash money</th>
+                        <th>email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{user.name}}</td>
+                        <td>{{user.wallet}}</td>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
 
