@@ -71,13 +71,40 @@
                         </a>
                     </div>
                     <div class="content">
-                        <div class="name">John Doe</div>
+                        <div class="name">{{mainUser.name}}</div>
                         <p class="description">
-                            Balance: $500
+                            Balance: ${{mainUser.wallet}}<br>
+                            Email: {{mainUser.email}}
                         </p>
 
                         <div class="extra">
-                            199 friends
+                            <div class="item">
+                                <div class="ui icon small button">
+                                    <i class="user icon"></i>
+                                    View Friends
+                                </div>
+                                {{users.length}} friends
+                            </div>
+                            <div class="item">
+                                <div class="ui animated small button">
+                                    <div class="visible content">My Requests</div>
+                                    <div class="hidden content">
+                                        <i class="level down icon"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="item">
+                                <div class="ui animated small button">
+                                    <div class="visible content">My Payments</div>
+                                    <div class="hidden content">
+                                        <i class="dollar icon"></i>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
                         </div>
                     </div>
                 </div>

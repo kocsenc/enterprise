@@ -25,15 +25,24 @@ app.factory('MainFactory', ['$http', function ($http) {
 
 app.controller('MainController', ['$scope', 'MainFactory', function ($scope, MainFactory) {
 
-    console.log("running request");
-    console.log(MainFactory.test);
     MainFactory.getUsers().
         success(function (data) {
             $scope.users = data;
+            setMainUser("Jay Owen")
         }).
         error(function (err) {
             console.log("ERROR!");
             console.log(err);
         });
 
+
+    var setMainUser = function (uname) {
+        angular.forEach($scope.users, function (user) {
+            if (uname == user.name) {
+                console.log('foundem');
+                $scope.mainUser = user;
+                return;
+            }
+        });
+    }
 }]);
