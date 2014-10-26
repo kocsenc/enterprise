@@ -14,10 +14,10 @@ app.factory('MainFactory', ['$http', function ($http) {
         user: "/user",
 
         getUsers: function () {
-            return $http.get(this.baseurl + this.users + "/all");
+            return $http.get(this.baseurl + this.user + "/all");
         },
         getUserRequests: function (uid) {
-            return $http.get(this.baseurl + this.user + uid + "/requests")
+            return $http.get(this.baseurl + this.user + "/" + uid + "/requests")
         }
 
 
@@ -38,16 +38,48 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
             console.log(err);
         });
 
+    MainFactory.getUserRequests("1").
+        success(function (data) {
+            $scope.requests = data;
+        });
+
 
     var setMainUser = function (uname) {
         angular.forEach($scope.users, function (user) {
             if (uname == user.name) {
-                console.log('foundem');
                 $scope.mainUser = user;
             }
         });
     };
 
+
+    /**
+     * Quick function to see who requests are from
+     * @param request
+     * @param iduser
+     * @returns {string|*}
+     */
+    $scope.findWho = function (request, iduser) {
+        idRequester = request.sender;
+        idReceiever = request.reciever;
+        originator = "";
+
+        if (idRequester == iduser) {
+            originator = "You requesting from ";
+            angular.forEach($scope.users, function (user) {
+                if (idReceiever == user.id) {
+                    originator += user.name;
+                }
+            });
+        } else {
+            angular.forEach($scope.users, function (user) {
+                if (idRequester == user.id) {
+                    originator = user.name;
+                }
+            })
+        }
+        return originator;
+    };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 }]);

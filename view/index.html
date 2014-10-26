@@ -24,9 +24,9 @@
 
 </head>
 <body ng-controller="MainController">
+
+<!-- Navbar -->
 <div>
-
-
     <div class="ui large inverted pointing menu" id="topbar">
         <a class="item">
             <i class="money icon"></i>
@@ -51,17 +51,18 @@
     </div>
 </div>
 
+
+<!-- Main Content container -->
 <div class="ui grid" style="padding-left: 30px">
-    <div class="row" style="text-align: center">
-        <h1 class="ui icon header">
-            <i class="circular green money icon"></i>PayBook
-            <div class="sub header">Welcome to PayBook</div>
-        </h1>
-    </div>
-
-
     <div class="row">
         <div class="five wide column">
+            <div class="row" style="text-align: center">
+                <h1 class="ui icon header">
+                    <i class="circular green money icon"></i>PayBook
+                    <div class="sub header">Welcome to PayBook</div>
+                </h1>
+            </div>
+
             <div class="ui items">
                 <div class="item">
                     <div class="image">
@@ -129,12 +130,12 @@
 
             <div class="ui fluid accordion" id="mainAccordion">
                 <!-- Friends -->
-                <div class="active title">
+                <div class="title">
                     <i class="dropdown icon"></i>
                     <i class="small user icon"></i>
                     My Friends
                 </div>
-                <div class="active content">
+                <div class="content">
                     <table class="ui basic table">
                         <thead>
                         <tr>
@@ -163,9 +164,28 @@
                     My Requests
                 </div>
                 <div class="content">
-                    <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a
-                        breed of dog that they find to be compatible with their own lifestyle and desires from a
-                        companion.</p>
+
+                    <div class="ui divided list">
+                        <div class="item" ng-repeat="request in requests">
+                            <div class="right floated tiny teal ui button">Fulfill</div>
+                            <div class="right floated tiny red ui button">Cancel</div>
+                            <img class="ui avatar image" src="avatar2.jpg">
+
+                            <div class="content">
+                                <div class="header">
+                                    {{findWho(request, mainUser.id)}}
+                                </div>
+                                <div class="description">
+                                    <i class="dollar icon"></i>
+                                    {{request.amount}}
+                                    <br>
+                                    {{request.description}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <!-- Payments -->
