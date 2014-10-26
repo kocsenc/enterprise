@@ -41,8 +41,10 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
             if (uname == user.name) {
                 console.log('foundem');
                 $scope.mainUser = user;
-                return;
             }
         });
     }
+
+
+    $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 }]);

@@ -73,38 +73,12 @@
                     <div class="content">
                         <div class="name">{{mainUser.name}}</div>
                         <p class="description">
-                            Balance: ${{mainUser.wallet}}<br>
-                            Email: {{mainUser.email}}
+                            <b>Balance</b>: ${{mainUser.wallet}}<br>
+                            <b>Email</b>: &nbsp {{mainUser.email}}
                         </p>
 
                         <div class="extra">
-                            <div class="item">
-                                <div class="ui icon small button">
-                                    <i class="user icon"></i>
-                                    View Friends
-                                </div>
-                                {{users.length}} friends
-                            </div>
-                            <div class="item">
-                                <div class="ui animated small button">
-                                    <div class="visible content">My Requests</div>
-                                    <div class="hidden content">
-                                        <i class="level down icon"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="item">
-                                <div class="ui animated small button">
-                                    <div class="visible content">My Payments</div>
-                                    <div class="hidden content">
-                                        <i class="dollar icon"></i>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
+                            {{users.length}} friends
                         </div>
                     </div>
                 </div>
@@ -118,19 +92,6 @@
                     Pay or Request
                 </h2>
 
-                <!--<div class="ui steps">-->
-                <!--<div class="ui active step">-->
-                <!--1 Type-->
-                <!--</div>-->
-                <!--<div class="ui step">-->
-                <!--2 Person-->
-                <!--</div>-->
-                <!--<div class="ui step">-->
-                <!--3 Amount-->
-                <!--</div>-->
-                <!--</div>-->
-
-                <!-- Pay or request? -->
                 <div class="field">
                     <label>1. Type</label>
 
@@ -164,27 +125,61 @@
 
 
             </div>
-            <div class="ui segment">
-                <table class="ui basic table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Cash Money</th>
-                        <th>Email</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="user in users">
-                        <td>{{user.name}}</td>
-                        <td>
-                            <i class="dollar icon"></i>
-                            {{user.wallet}}
-                        </td>
-                        <td>{{user.email}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+
+
+            <div class="ui fluid accordion" id="mainAccordion">
+                <!-- Friends -->
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    <i class="small circular user icon"></i>
+                    My Friends
+                </div>
+                <div class="active content">
+                    <table class="ui basic table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cash Money</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.name}}</td>
+                            <td>
+                                <i class="dollar icon"></i>
+                                {{user.wallet}}
+                            </td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Requests -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    <i class="small ticket icon"></i>
+                    My Requests
+                </div>
+                <div class="content">
+                    <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a
+                        breed of dog that they find to be compatible with their own lifestyle and desires from a
+                        companion.</p>
+                </div>
+
+                <!-- Payments -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    <i class="small payment icon"></i>
+                    Payment Types
+                </div>
+                <div class="content">
+                    <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or
+                        shelters.</p>
+                </div>
             </div>
+
 
         </div>
 
