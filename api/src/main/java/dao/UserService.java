@@ -27,11 +27,11 @@ public class UserService {
    Statement statement = connection.createStatement();
    ResultSet rs = statement.executeQuery("select * from User limit 15");
    while (rs.next()) {
-    User user = new User();
-    user.setId(rs.getInt("uid"));
-    user.setName(rs.getString("uname"));
-    user.setEmail(rs.getString("email"));
-    user.setWallet(rs.getDouble("wallet"));
+    int uid = rs.getInt("uid");
+    String name = rs.getString("uname");
+    Double wallet = rs.getDouble("wallet");
+    String email = rs.getString("email");    
+    User user = new User(uid,name,wallet,email);
     users.add(user);
    }
   } catch (SQLException e) {
