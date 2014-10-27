@@ -6,6 +6,10 @@
 
 var app = angular.module('PayBookApp', []);
 
+app.config(function ($httpProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});
 
 app.factory('MainFactory', ['$http', function ($http) {
     return {
