@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class Request {
 
-  private int rid;
-  private int sender;
-  private int reciever;
-  private String description;
-  private Double amount;
-  private Date startDate;
-  private Date endDate;
+  private final int rid;
+  private final int sender;
+  private final int reciever;
+  private final String description;
+  private final Double amount;
+  private final Date startDate;
+  private final Date endDate;
   private boolean fulfilled;
 
   public Request(int rid,int sender, int reciever, String description,
@@ -26,31 +26,35 @@ public class Request {
   }
 
   public int getRId() {
-    return rid;
+    return this.rid;
   }
 
   public int getSender(){
-    return sender;
+    return this.sender;
   }
 
   public int getReciever(){
-    return reciever;
+    return this.reciever;
   }
 
   public String getDescription(){
-    return description;
+    return this.description;
   }
 
   public Double getAmount(){
-    return amount;
+    return this.amount;
   }
 
   public Date getEndDate(){
-    return endDate;
+    return this.endDate;
   }
 
   public Date getStartDate(){
-    return startDate;
+    return this.startDate;
+  }
+
+  public boolean getFulfilled(){
+    return this.fulfilled;
   }
 
   public void setFulfilled(boolean state){
