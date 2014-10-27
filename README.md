@@ -19,7 +19,7 @@ Returns a collection of all requests for the user associated with the given id.
 
 Returns a collection of all payments for the user associated with the given id.
 
-#### /user/{id}/paymentType
+#### /user/{id}/pay_types
 
 Returns a collection of types of payments for the user associated with the given id.
 

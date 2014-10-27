@@ -39,7 +39,7 @@ public class UserController {
       return requests;
     }
 
-    @RequestMapping("/{id}/paymentType")
+    @RequestMapping("/{id}/pay_types")
     public PaymentType getPaymentTypeById(@PathVariable int id){
       PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
       return paymentType;
