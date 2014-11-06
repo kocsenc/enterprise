@@ -23,7 +23,7 @@ public class DBUtility {
                 //String driver = prop.getProperty("driver");
                 String driver = "com.mysql.jdbc.Driver";
                 //String url = prop.getProperty("url");
-                String url = "jdbc:mysql://vm343a.se.rit.edu:3306/test";
+                String url = "jdbc:mysql://129.21.208.134:3306/test";
                 //String user = prop.getProperty("user");
                 String user = "paybook";
                 //String password = prop.getProperty("password");
