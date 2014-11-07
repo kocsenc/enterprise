@@ -45,4 +45,16 @@ public class UserController {
       return paymentType;
     }
 
+    @RequestMapping("/{id}/friends")
+    public List<User> getFriends(@PathVariable int id){
+        List<User> users=userService.getFriends(id);
+        return paymentType;
+    }
+
+    @RequestMapping("/{id}/trusted_friends")
+    public List<User> getFriends(@PathVariable int id){
+        List<User> users=userService.getTrustedFriends(id);
+        return paymentType;
+    }
+
 }
