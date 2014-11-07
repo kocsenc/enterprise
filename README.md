@@ -5,6 +5,8 @@ For SWEN343 - Enterprise Software
 
 ## Setup and Usage
 
+You can play around with a live demo of the project [here](http://vm343a.se.rit.edu)
+
 ### Installation Prerequisites
 
 **System Packages:**
