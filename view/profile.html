@@ -1,10 +1,132 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<html lang="en" ng-app="PayBookApp">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <!-- Site Properties -->
+    <title>PayBook</title>
+
+
+    <!-- Styling & CSS -->
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+
+    <!-- Scripts -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="js/core.js"></script>
+
+
+</head>
+<body ng-controller="MainController">
+<div>
+
+<!-- Navbar -->
+    <div class="ui large inverted pointing menu" id="topbar">
+        <a class="item">
+            <i class="money icon"></i>
+            PayBook
+        </a>
+        <a class="item">
+            <i class="home icon"></i>
+            Campaigns
+        </a>
+
+        <a class="item">
+            About
+        </a>
+
+        <div class="right menu">
+            <a class="item" href="profile.html">
+                <i class="user icon"></i>
+                My Profile
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+
+<div class="ui grid" style="padding-left: 30px">
+    <div class="row" style="text-align: left">
+        <h1 class="ui header">My Profile</h1>
+    </div>
+
+
+    <div class="row">
+       <!-- <div class="four wide column">
+            <div class="ui items">
+                <div class="item" >Profile Picture
+                    <div class="image">
+                        <img src="http://www.phootoscelebrities.com/wp-content/uploads/2014/07/Brad-Pitt-smiling.jpg">
+                        <a class=" like ui corner label">
+                            <i class="edit icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+           -->
+
+        <div class="five wide column">
+            <h1 class = "ui header">Edit Profile
+            </h1>
+            <div class="ui form segment">
+                <div class="field">
+                    <label>name </label>
+                    <div class="ui left labeled icon input">
+                        <input placeholder=&nbsp{{mainUser.name}} type="text">
+                    </div>
+                </div>
+                <div class="right floated tiny green ui button">
+                    <i class="checkmark icon"></i>Save Changes
+                </div>
+                <div class="field">
+                    <label>e-mail </label>
+                    <div class="ui left labeled icon input">
+                        <input placeholder=&nbsp{{mainUser.email}} type="text">
+                    </div>
+                </div>
+                <div class="right floated tiny green ui button">
+                    <i class="checkmark icon"></i>Save Changes
+                </div>
+                <div class="field">
+                    <label>current password </label>
+                    <div class="ui left labeled icon input">
+                        <input type="password">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>new password </label>
+                    <div class="ui left labeled icon input">
+                        <input type="password">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>confirm new password </label>
+                    <div class="ui left labeled icon input">
+                        <input type="password">
+                    </div>
+                </div>
+                <div class="right floated tiny green ui button">
+                    <i class="checkmark icon"></i>Save Changes
+                </div>
+            </div>
+        </div>
+
+        <div class="five wide column">
+
+     </div>
+
+</div>
+
+
+</div>
 </body>
 </html>
