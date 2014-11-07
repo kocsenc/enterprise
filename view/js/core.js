@@ -69,6 +69,10 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
     };
 
 
+    $('.ui.selection.dropdown')
+        .dropdown()
+    ;
+
     /**
      * Quick function to see who requests are from
      * @param request

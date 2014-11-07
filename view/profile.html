@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-           -->
+       -->
 
         <div class="five wide column">
             <h1 class = "ui header">Edit Profile
@@ -102,30 +102,71 @@
                         <input type="password">
                     </div>
                 </div>
-                <div class="field">
-                    <label>new password </label>
-                    <div class="ui left labeled icon input">
-                        <input type="password">
+                <div class="two fields">
+                    <div class="field">
+                        <label>new password </label>
+                        <div class="ui left labeled icon input">
+                            <input type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <label>confirm new password </label>
-                    <div class="ui left labeled icon input">
-                        <input type="password">
+                    <div class="field">
+                        <label>confirm new password </label>
+                        <div class="ui left labeled icon input">
+                            <input type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="right floated tiny green ui button">
-                    <i class="checkmark icon"></i>Save Changes
+                    <div class="right floated tiny green ui button">
+                        <i class="checkmark icon"></i>Save Changes
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="five wide column">
+            <h1 class = "ui header">Add Payment
+            </h1>
+            <div class="ui form segment">
+                <div class="field">
+                    <label>Cardholder Name</label>
+                    <input placeholder="Name" type="text">
+                </div>
+                <div class="two fields">
+                    <div class="ten wide field">
+                        <label>Card Number</label>
+                        <input placeholder="Card Number" type="text">
+                    </div>
+
+
+                    <div class="six wide field" style="padding-top: 20px">
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="gender">
+                            <div class="default text">Card Type</div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item" data-value="1">Visa</div>
+                                <div class="item" data-value="0">MasterCard</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>CCV</label>
+                        <input placeholder="CCV" type="password">
+                    </div>
+                    <div class="date field">
+                        <label>Expiration Date</label>
+                        <input type="text" placeholder="xx/xxxx">
+                    </div>
+                    <div class="right floated tiny green ui button">
+                        <i class="checkmark icon"></i>Add Payment
+                    </div>
+                </div>
+            </div>
+        </div>
 
      </div>
-
-</div>
-
 
 </div>
 </body>
