@@ -13,7 +13,7 @@ app.config(function ($httpProvider) {
 
 app.factory('MainFactory', ['$http', function ($http) {
     return {
-        baseurl: "http://localhost:8080",
+        baseurl: "/api",
         users: "/users",
         user: "/user",
 
