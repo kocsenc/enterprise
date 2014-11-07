@@ -22,6 +22,9 @@ app.factory('MainFactory', ['$http', function ($http) {
         },
         getUserRequests: function (uid) {
             return $http.get(this.baseurl + this.user + "/" + uid + "/requests")
+        },
+        getPaymentTypes: function (uid) {
+            return $http.get(this.baseurl + this.user + "/" + uid + "/pay_types")
         }
 
 
@@ -58,6 +61,10 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
     };
 
 
+    /**
+     * Payment functionality form data
+     * @type {{type: {pay: boolean, request: boolean}, friendSearch: string, friend: string, amount: string}}
+     */
     $scope.paymentForm = {
         type: {
             pay: true,
