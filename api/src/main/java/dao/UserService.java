@@ -56,7 +56,7 @@ public List<user> getFriends() {
             if (uid1 = id) {
                 friendID = uid2;
             } else {
-                friendID = uid2;
+                friendID = uid1;
             }
 
             //Get user object from database, put it in list
@@ -92,7 +92,7 @@ public List<user> getTrustedFriends() {
             if (uid1 = id) {
                 friendID = uid2;
             } else {
-                friendID = uid2;
+                friendID = uid1;
             }
 
             //Get user object from database, put it in list
