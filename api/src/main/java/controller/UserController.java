@@ -14,7 +14,7 @@ import domain.Request;
 import domain.PaymentType;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     UserService userService = new UserService();

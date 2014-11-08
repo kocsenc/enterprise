@@ -8,3 +8,7 @@ html, body {
 html {
 
 }
+
+.capital {
+    text-transform: lowercase;
+}
