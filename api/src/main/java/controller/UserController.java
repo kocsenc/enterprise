@@ -55,4 +55,11 @@ public class UserController {
       return requestService.postRequest(req);
     }
 
+    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      req.setFulfilled(true);
+      return requestService.postRequest(req);
+    }
+
 }
