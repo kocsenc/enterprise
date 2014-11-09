@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import dao.UserService;
@@ -43,6 +47,12 @@ public class UserController {
     public PaymentType getPaymentTypeById(@PathVariable int id){
       PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
       return paymentType;
+    }
+
+    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      return requestService.postRequest(req);
     }
 
 }

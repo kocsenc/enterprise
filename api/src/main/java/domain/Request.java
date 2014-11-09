@@ -1,12 +1,14 @@
 package domain;
 
 import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Request {
 
-  private final int rid;
-  private final int sender;
-  private final int reciever;
+  private final Integer rid;
+  private Integer sender;
+  private final Integer reciever;
   private final String description;
   private final Double amount;
   private final Date startDate;
@@ -23,6 +25,19 @@ public class Request {
     this.startDate = startDate;
     this.endDate = endDate;
     this.fulfilled = fulfilled;
+  }
+
+  @JsonCreator
+  public Request(@JsonProperty("amount") double amount, @JsonProperty("receiver") int receiver, @JsonProperty("description")String description){
+    this.rid = null;
+    this.reciever = receiver;
+    this.description = description;
+    this.amount = amount;
+    this.startDate  = new Date(new java.util.Date().getTime());
+    this.endDate = new Date(new java.util.Date().getTime());
+    this.fulfilled = false;
+    this.sender = null;
+
   }
 
   public int getRId() {
@@ -59,6 +74,10 @@ public class Request {
 
   public void setFulfilled(boolean state){
     this.fulfilled = state;
+  }
+
+  public void setSender(int id){
+    this.sender = id;
   }
 
 
