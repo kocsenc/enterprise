@@ -18,6 +18,7 @@ import dao.PaymentTypeService;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
+import domain.FriendRequest;
 import java.sql.SQLException;
 
 @RestController
@@ -89,13 +90,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/friendrequests")
-    public List<FriendRequest> getFriendRequests(int id){
+    public List<FriendRequest> getFriendRequests(@PathVariable int id){
         List<FriendRequest> fReqs = userService.getFriendRequests(id);
         return fReqs;
     }
 
     @RequestMapping(value = "/{id}/trustrequests")
-    public List<FriendRequest> getFriendRequests(int id){
+    public List<FriendRequest> getTrustRequests(@PathVariable int id){
         List<FriendRequest> tReqs = userService.getTrustRequests(id);
         return tReqs;
     }

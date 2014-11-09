@@ -2,12 +2,12 @@ package domain;
 
 public class FriendRequest {
 
-  private final int rid;
-  private final int sender;
-  private final int receiver;
+  private final Integer rid;
+  private final Integer sender;
+  private final Integer receiver;
   private final Boolean trust;
 
-  public FriendRequest(int rid, int sender, int receiver, Boolean trust){
+  public FriendRequest(Integer rid, Integer sender, Integer receiver, Boolean trust){
     this.rid = rid;
     this.sender = sender;
     this.receiver = receiver;

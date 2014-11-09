@@ -223,15 +223,15 @@ public ResponseEntity<String> register(User user) throws SQLException{
     }
 }
 
-public List<FriendRequest> getFriendRequests(int id){
+public List<FriendRequest> getFriendRequests(Integer id){
     List<FriendRequest> fReqs = new ArrayList<FriendRequest>();
     try {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = false");
         while (rs.next()) {
-            int rid = rs.getInt("rid");
-            int sender = rs.getInt("sender");
-            int receiver = rs.getInt("receiver");
+            Integer rid = rs.getInt("rid");
+            Integer sender = rs.getInt("sender");
+            Integer receiver = rs.getInt("receiver");
             boolean trust = false;
             FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
             if (fReqs.contains(fReq) == false) {
@@ -252,9 +252,9 @@ public List<FriendRequest> getTrustRequests(int id){
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = true");
         while (rs.next()) {
-            int rid = rs.getInt("rid");
-            int sender = rs.getInt("sender");
-            int receiver = rs.getInt("receiver");
+            Integer rid = rs.getInt("rid");
+            Integer sender = rs.getInt("sender");
+            Integer receiver = rs.getInt("receiver");
             boolean trust = false;
             FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
             if (tReqs.contains(fReq) == false) {
