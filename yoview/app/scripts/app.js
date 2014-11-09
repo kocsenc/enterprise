@@ -15,7 +15,7 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -41,4 +41,8 @@ angular
   })
   .controller('GlobalCtrl', function($scope, GlobalService) {
     console.log("global ctrl");
+
+    GlobalService.fetchGlobalData();
+
+
   });
