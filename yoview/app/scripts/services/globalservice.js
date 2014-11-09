@@ -66,7 +66,6 @@ angular.module('paybookApp')
 
       getFriends: function (uid) {
         var url = this.baseurl + this.user + "/" + uid + "/friends";
-        console.log(url);
         return $http.get(url);
       },
 

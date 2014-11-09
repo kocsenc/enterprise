@@ -13,12 +13,6 @@ angular.module('paybookApp')
     $scope.mainUser = GlobalService.globalUser;
     initRequests();
 
-    $scope.paymentForm = {
-      type: {
-        pay: true
-      }
-    };
-
 
     /**
      * Makes initial API calls and requests
@@ -76,6 +70,34 @@ angular.module('paybookApp')
         })
       }
       return originator;
+    };
+
+
+    $scope.paymentForm = {
+      type: {
+        pay: true
+      },
+      friendSearch: "",
+      amount: ""
+    };
+
+    $scope.submitPaymentRequest = function () {
+      var data = $scope.paymentForm;
+
+      var pushData = {
+        receiver: data.friendSearch,
+        amount: data.amount,
+        description: data.description
+      };
+
+      console.log(pushData);
+      //Now you can submit depending on payment form
+      if (data.type.pay) {
+        // Post to payment
+      } else {
+        // Post to request
+      }
+
     };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
