@@ -66,7 +66,7 @@ public List<User> getFriends(int id) {
     List<User> users = new ArrayList<User>();
     try {
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from Friends where friend1 = " + id + "or friend2 = " + id);
+        ResultSet rs = statement.executeQuery("select * from Friends where friend1 = " + id + " or friend2 = " + id);
         while (rs.next()) {
             int uid1 = rs.getInt("friend1");
             int uid2 = rs.getInt("friend2");
@@ -82,12 +82,14 @@ public List<User> getFriends(int id) {
             //Get user object from database, put it in list
             Statement userStatement = connection.createStatement();
             ResultSet userRS = userStatement.executeQuery("select * from User where uid = " + friendID);
-            String name = rs.getString("uname");
-            Double wallet = rs.getDouble("wallet");
-            String email = rs.getString("email");
-            User user = new User(friendID, name, wallet, email);
-            if (users.contains(user) == false) {
-                users.add(user);
+            while(userRS.next()) {
+                String name = userRS.getString("uname");
+                Double wallet = userRS.getDouble("wallet");
+                String email = userRS.getString("email");
+                User user = new User(friendID, name, wallet, email);
+                if (users.contains(user) == false) {
+                    users.add(user);
+                }
             }
         }
     } catch (SQLException e){
