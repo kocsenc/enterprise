@@ -11,6 +11,10 @@ angular.module('paybookApp')
   .controller('MainCtrl', function ($scope, GlobalService) {
 
     $scope.friendRequests = [];
+    $scope.paymentTypes = {
+      card: [],
+      baccount: []
+    };
     initRequests();
 
 
@@ -52,11 +56,18 @@ angular.module('paybookApp')
         GlobalService.getFriendRequests($scope.mainUser.id).
           success(function (data) {
             $scope.friendRequests = data;
-
           }).
           error(function (err) {
             console.log(err);
           });
+
+
+        GlobalService.getPaymentTypes($scope.mainUser.id).
+          success(function (data) {
+            console.log(data);
+            $scope.paymentTypes.card.push(data.creditCard);
+            $scope.paymentTypes.baccount.push(data.bankAccount);
+          })
 
 
       });

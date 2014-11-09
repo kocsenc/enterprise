@@ -72,7 +72,13 @@ angular.module('paybookApp')
       },
 
       getFriendRequests: function (uid) {
-        var url = this.baseurl + this.user + "/" + uid + "/friend_requests"
+        var url = this.baseurl + this.user + "/" + uid + "/friendrequests"
+        return $http.get(url);
+      },
+
+      getPaymentTypes: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/pay_types";
         return $http.get(url);
       }
 
