@@ -10,7 +10,7 @@
 angular.module('paybookApp')
   .controller('MainCtrl', function ($scope, GlobalService) {
 
-    $scope.mainUser = GlobalService.globalUser;
+    $scope.friendRequests = [];
     initRequests();
 
 
@@ -18,39 +18,50 @@ angular.module('paybookApp')
      * Makes initial API calls and requests
      */
     function initRequests() {
-      GlobalService.getUsers().
-        success(function (data) {
-          $scope.users = data
-        }).
-        error(function (err) {
-          console.log('mega error');
-        });
 
-      GlobalService.getFriends($scope.mainUser.id).
-        success(function (data) {
-          $scope.friends = data;
-        }).
-        error(function (err) {
-          console.log(err);
-        });
+      var promise = GlobalService.getUser("1");
+      promise.then(function (result) {
+        GlobalService.setGlobalUser(result);
+        $scope.mainUser = GlobalService.globalUser;
 
-      GlobalService.getUserRequests($scope.mainUser.id).
-        success(function (data) {
-          $scope.requests = data;
-        }).
-        error(function (err) {
-          console.log(err);
-        });
 
-      $scope.friendRequests = [];
-      GlobalService.getFriendRequests($scope.mainUser.id).
-        success(function (data) {
-          $scope.friendRequests = data;
+        GlobalService.getUsers().
+          success(function (data) {
+            $scope.users = data
+          }).
+          error(function (err) {
+            console.log('mega error');
+          });
 
-        }).
-        error(function (err) {
-          console.log(err);
-        });
+        GlobalService.getFriends($scope.mainUser.id).
+          success(function (data) {
+            $scope.friends = data;
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+        GlobalService.getUserRequests($scope.mainUser.id).
+          success(function (data) {
+            $scope.requests = data;
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+        GlobalService.getFriendRequests($scope.mainUser.id).
+          success(function (data) {
+            $scope.friendRequests = data;
+
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+
+      });
+
+
     }
 
 

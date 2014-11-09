@@ -57,7 +57,9 @@ angular.module('paybookApp')
        */
       getUser: function (uid) {
         var url = this.baseurl + this.user + "/" + uid + "/getuser";
-        return $http.get(url);
+        return $http.get(url).then(function (result) {
+          return result.data;
+        });
       },
 
       getUserRequests: function (uid) {

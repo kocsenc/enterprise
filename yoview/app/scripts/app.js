@@ -40,5 +40,5 @@ angular
       });
   })
   .controller('GlobalCtrl', function ($scope, GlobalService) {
-    GlobalService.fetchGlobalData();
+    //GlobalService.fetchGlobalData();
   });
