@@ -39,10 +39,6 @@ angular
         redirectTo: '/'
       });
   })
-  .controller('GlobalCtrl', function($scope, GlobalService) {
-    console.log("global ctrl");
-
+  .controller('GlobalCtrl', function ($scope, GlobalService) {
     GlobalService.fetchGlobalData();
-
-
   });
