@@ -16,6 +16,7 @@ angular.module('paybookApp')
 
       setGlobalUser: function (user) {
         this.globalUser = user;
+        console.log("Broadcasting set global user");
         $rootScope.$broadcast('Global-User');
       },
 
@@ -26,22 +27,13 @@ angular.module('paybookApp')
 
       fetchGlobalData: function () {
         // For now, 'login' as specific user
-        this.getUser("1").
+        var self = this;
+
+        var userid = "1";
+        this.getUser(userid).
           success(function (userData) {
             console.log(userData);
-            this.setGlobalUser(userData);
-
-            // Get friends of user
-            this.getUsers().
-              success(function (data) {
-                // Setting friends as all users
-                this.setGlobalFriends(data);
-              }).
-              error(function (err) {
-                console.log('get friends error!');
-              })
-
-
+            self.setGlobalUser(userData);
           }).
           error(function (userErr) {
             console.log('user Error');
@@ -64,11 +56,18 @@ angular.module('paybookApp')
        * @returns {HttpPromise}
        */
       getUser: function (uid) {
-        return $http.get(this.baseurl + '/' + uid)
+        var url = this.baseurl + this.user + "/" + uid + "/getuser";
+        return $http.get(url);
       },
 
       getUserRequests: function (uid) {
         return $http.get(this.baseurl + this.user + "/" + uid + "/requests")
+      },
+
+      getFriends: function (uid) {
+        var url = this.baseurl + this.user + "/" + uid + "/friends";
+        console.log(url);
+        return $http.get(url);
       }
 
 

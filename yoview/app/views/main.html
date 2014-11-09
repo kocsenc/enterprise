@@ -82,8 +82,36 @@
         <!-- Friends -->
         <div class="title">
           <i class="dropdown icon"></i>
-          <i class="small user icon"></i>
-          My Friends
+          <i class="small users icon"></i>
+          Friends
+        </div>
+        <div class="content">
+          <table class="ui basic table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Cash Money</th>
+              <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in friends">
+              <td>{{user.name}}</td>
+              <td>
+                <i class="dollar icon"></i>
+                {{user.wallet}}
+              </td>
+              <td>{{user.email}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Search People -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="small users icon"></i>
+          People
         </div>
         <div class="content">
           <table class="ui basic table">
@@ -119,7 +147,8 @@
             <div class="item" ng-repeat="request in requests">
               <div class="right floated tiny teal ui button">Fulfill</div>
               <div class="right floated tiny red ui button">Cancel</div>
-              <img class="ui avatar image" src="avatar2.jpg">
+              <!-- <img class="ui avatar image" src="avatar2.jpg">
+              -->
 
               <div class="content">
                 <div class="header">
