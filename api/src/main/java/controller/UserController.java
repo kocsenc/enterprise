@@ -58,14 +58,14 @@ public class UserController {
     }
 
     @RequestMapping("/api/user/{id}/friend/{friend_email}")
-    public bool addFriend(@Pathbariable int id, @Pathvariable String friend_email){
-        bool completed = userService.addFriend(id, friend_email);
+    public String addFriend(@Pathbariable int id, @Pathvariable String friend_email){
+        String completed = userService.addFriend(id, friend_email);
         return completed;
     }
 
     @RequestMapping("/api/user/{id}/friend/{friend_email}")
-    public bool trustFriend(@Pathbariable int id, @Pathvariable String friend_email){
-        bool completed = userService.trustFriend(id, friend_email);
+    public String trustFriend(@Pathbariable int id, @Pathvariable String friend_email){
+        String completed = userService.trustFriend(id, friend_email);
         return completed;
     }
 
@@ -73,9 +73,9 @@ public class UserController {
     // 0 - Email already registered
     // 1 - Completed
     // 2 - other error??
-    @RequestMapping("/api/user/register")
-    public int register(){
-        int completed = userService.register();
+    @RequestMapping(value = "/api/user/register", method =  RequestMethod.POST)
+    public String register(@RequestBody User user){
+        String completed = userService.register(user);
         return completed;
     }
 

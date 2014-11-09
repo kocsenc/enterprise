@@ -65,7 +65,7 @@ public List<user> getFriends() {
             String name = rs.getString("uname");
             Double wallet = rs.getDouble("wallet");
             String email = rs.getString("email");
-            User user = new User(uid, name, wallet, email);
+            User user = new User(friendID, name, wallet, email);
             if (users.contains(user) == false) {
                 users.add(user);
             }
@@ -101,7 +101,7 @@ public List<user> getTrustedFriends() {
             String name = rs.getString("uname");
             Double wallet = rs.getDouble("wallet");
             String email = rs.getString("email");
-            User user = new User(uid, name, wallet, email);
+            User user = new User(friendID, name, wallet, email);
             if (users.contains(user) == false) {
                 users.add(user);
             }
@@ -113,110 +113,89 @@ public List<user> getTrustedFriends() {
     return users;
 }
 
-public bool addFriend(){
-    bool completed = false;
+public ResponseEntity<String> addFriend(){
     try{
-        Statement IDstatement = connection.createStatement();
-        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + friend_email);
-        int fid = null;
-        while (rs.next()) {
-            fid = rs.getInt("uid");
-        }
-
-        if(fid = null){
-            return completed;
-        }
         else{
             PreparedStatement addFriendStatement = null;
             connection.setAutoCommit(false);
             String addFriendString = ("INSERT INTO F_Req VALUES NULL " + ? + ? + " false");
             addFriendStatement = connection.prepareStatement(addFriendStatement);
             addFriendStatement.setInt(1, id);
-            addFriendStatement.setInt(2, fid);
+            addFriendStatement.setInt(2, friend_id);
             connection.commit();
         }
 
     } catch (SQLException e){
-        return completed;
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     } finally {
         if (addFriendStatement != null) {
             addFriendStatement.close();
-            completed = true;
+            con.setAutoCommit(true);
+            return new ResponseEntity<String>(HttpStatus.CREATED);
         }
         con.setAutoCommit(true);
-        return completed;
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
 
-public bool trustFriend(){
-    bool completed = false;
+public ResponseEntity<String> trustFriend(){
     try{
-        Statement IDstatement = connection.createStatement();
-        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + friend_email);
-        int fid = null;
-        while (rs.next()) {
-            fid = rs.getInt("uid");
-        }
-
-        if(fid = null){
-            return completed;
-        }
         else{
             PreparedStatement trustFriendStatement = null;
             connection.setAutoCommit(false);
             String addFriendString = ("INSERT INTO F_Req VALUES NULL " + ? + ? + " true");
             trustFriendStatement = connection.prepareStatement(addFriendStatement);
             trustFriendStatement.setInt(1, id);
-            trustFriendStatement.setInt(2, fid);
+            trustFriendStatement.setInt(2, friend_id);
             connection.commit();
         }
 
     } catch (SQLException e){
-        return completed;
+        return return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     } finally {
         if (trustFriendStatement != null) {
             trustFriendStatement.close();
-            completed = true;
+            return new ResponseEntity<String>(HttpStatus.CREATED);
         }
         con.setAutoCommit(true);
-        return completed;
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
 
-public int register(){
+public ResponseEntity<String> register(){
     try{
         Statement IDstatement = connection.createStatement();
-        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + email);
+        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + user.getEmail());
         int id = null;
         while (rs.next()) {
             id = rs.getInt("uid");
         }
 
         if(fid != null){
-            return 0;
+            return new ResponseEntity<String>(HttpStatus.CONFLICT);
         }
         else{
             PreparedStatement registerStatement = null;
             connection.setAutoCommit(false);
             String addFriendString = ("INSERT INTO User VALUES " + ? + " NULL " + ? + ? + " 0.00");
             registerStatement = connection.prepareStatement(addFriendStatement);
-            registerStatement.setString(1, name);
-            registerStatement.setString(2, email);
-            registerStatement.setString(3, pass);
-            connection.commit();
+            registerStatement.setString(1, user.getName());
+            registerStatement.setString(2, user.getEmail());
+            registerStatement.setString(3, user.getPass());
+            registerStatement.executeUpdate();
         }
 
     } catch (SQLException e){
-        return completed;
+        return return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     } finally {
         if (registerStatement != null) {
             registerStatement.close();
-            completed = true;
+            return new ResponseEntity<String>(HttpStatus.CREATED);
         }
         con.setAutoCommit(true);
-        return completed;
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
