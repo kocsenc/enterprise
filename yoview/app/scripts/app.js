@@ -38,4 +38,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .controller('GlobalCtrl', function($scope, GlobalService) {
+    console.log("global ctrl");
   });

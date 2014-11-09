@@ -8,8 +8,8 @@
  * Controller of the paybookApp
  */
 angular.module('paybookApp')
-  .controller('MainCtrl', function ($scope) {
-
+  .controller('MainCtrl', function ($scope, GlobalService) {
+    $scope.yolo = GlobalService.yolo;
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 
