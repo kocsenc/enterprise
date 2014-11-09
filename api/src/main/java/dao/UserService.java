@@ -185,9 +185,13 @@ public ResponseEntity<String> trustFriend(int id, int friend_id) throws SQLExcep
 
 public ResponseEntity<String> register(User user) throws SQLException{
     PreparedStatement registerStatement = null;
+    System.out.println(user.getName());
+    System.out.println(user.getEmail());
     try{
         Statement IDstatement = connection.createStatement();
-        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + user.getEmail());
+        String idQuery = "select * from User where email = '" + user.getEmail()+"'";
+        System.out.println(idQuery);
+        ResultSet rs = IDstatement.executeQuery(idQuery);
         int id = 0;
         while (rs.next()) {
             id = rs.getInt("uid");
@@ -198,7 +202,7 @@ public ResponseEntity<String> register(User user) throws SQLException{
         }
         else{
             //connection.setAutoCommit(false);
-            String registerString = "INSERT INTO User VALUES(?, NULL, ?, test, 0.00)";
+            String registerString = "insert into User values(?,NULL,?,'test',0.00)";
             registerStatement = connection.prepareStatement(registerString);
             registerStatement.setString(1, user.getName());
             registerStatement.setString(2, user.getEmail());
@@ -206,6 +210,7 @@ public ResponseEntity<String> register(User user) throws SQLException{
         }
 
     } catch (SQLException e){
+        e.printStackTrace();
         return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     } finally {
         if (registerStatement != null) {
@@ -213,7 +218,7 @@ public ResponseEntity<String> register(User user) throws SQLException{
             return new ResponseEntity<String>(HttpStatus.CREATED);
         }
         //connection.setAutoCommit(true);
-        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
     }
 }
 
