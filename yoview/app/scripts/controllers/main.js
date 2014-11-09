@@ -40,7 +40,17 @@ angular.module('paybookApp')
         }).
         error(function (err) {
           console.log(err);
-        })
+        });
+
+      $scope.friendRequests = [];
+      GlobalService.getFriendRequests($scope.mainUser.id).
+        success(function (data) {
+          $scope.friendRequests = data;
+
+        }).
+        error(function (err) {
+          console.log(err);
+        });
     }
 
 

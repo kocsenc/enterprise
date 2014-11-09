@@ -95,6 +95,32 @@
           Friends
         </div>
         <div class="content">
+
+          <!-- Friend Requests -->
+          <table class="ui basic table" ng-show="friendRequests.length > 0">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in friendRequests">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <div class="ui blue button">
+                  accept request
+                </div>
+              </td>
+
+            </tr>
+            </tbody>
+
+          </table>
+
+          <!-- Friends stuff -->
           <table class="ui basic table">
             <thead>
             <tr>
