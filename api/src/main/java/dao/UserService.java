@@ -120,12 +120,14 @@ public List<User> getTrustedFriends(int id) {
             //Get user object from database, put it in list
             Statement userStatement = connection.createStatement();
             ResultSet userRS = userStatement.executeQuery("select * from User where uid = " + friendID);
-            String name = rs.getString("uname");
-            Double wallet = rs.getDouble("wallet");
-            String email = rs.getString("email");
-            User user = new User(friendID, name, wallet, email);
-            if (users.contains(user) == false) {
-                users.add(user);
+            while(userRS.next()) {
+                String name = userRS.getString("uname");
+                Double wallet = userRS.getDouble("wallet");
+                String email = userRS.getString("email");
+                User user = new User(friendID, name, wallet, email);
+                if (users.contains(user) == false) {
+                    users.add(user);
+                }
             }
         }
     } catch (SQLException e){
