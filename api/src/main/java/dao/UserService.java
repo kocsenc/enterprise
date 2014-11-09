@@ -28,7 +28,7 @@ public class UserService {
   List<User> users = new ArrayList<User>();
   try {
    Statement statement = connection.createStatement();
-   ResultSet rs = statement.executeQuery("select * from User limit 15");
+   ResultSet rs = statement.executeQuery("select * from User");
    while (rs.next()) {
     int uid = rs.getInt("uid");
     String name = rs.getString("uname");
