@@ -114,22 +114,28 @@
           People
         </div>
         <div class="content">
+          <div class="ui left icon input">
+            <input ng-model="searchUserQuery" placeholder="Search users..." type="text">
+            <i class="users icon"></i>
+          </div>
+
           <table class="ui basic table">
             <thead>
             <tr>
               <th>Name</th>
-              <th>Cash Money</th>
               <th>Email</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in users | filter:searchUserQuery">
               <td>{{user.name}}</td>
-              <td>
-                <i class="dollar icon"></i>
-                {{user.wallet}}
-              </td>
               <td>{{user.email}}</td>
+              <td>
+                <div class="ui tiny blue button">
+                  add friend
+                </div>
+              </td>
             </tr>
             </tbody>
           </table>
