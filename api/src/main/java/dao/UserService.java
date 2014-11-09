@@ -137,11 +137,11 @@ public ResponseEntity<String> addFriend(int id, int friend_id) throws SQLExcepti
     PreparedStatement addFriendStatement = null;
     try{
         //connection.setAutoCommit(false);
-        String addFriendString = "INSERT INTO F_Req VALUES(NULL ?, ?, false)";
+        String addFriendString = "INSERT INTO F_Req VALUES(NULL, ?, ?, false)";
         addFriendStatement = connection.prepareStatement(addFriendString);
         addFriendStatement.setInt(1, id);
         addFriendStatement.setInt(2, friend_id);
-        connection.commit();
+        addFriendStatement.executeUpdate();
 
     } catch (SQLException e){
         return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -161,11 +161,11 @@ public ResponseEntity<String> trustFriend(int id, int friend_id) throws SQLExcep
     PreparedStatement trustFriendStatement = null;
     try{
         //connection.setAutoCommit(false);
-        String trustFriendString = "INSERT INTO F_Req VALUES(NULL ?, ?, true)";
+        String trustFriendString = "INSERT INTO F_Req VALUES(NULL, ?, ?, true)";
         trustFriendStatement = connection.prepareStatement(trustFriendString);
         trustFriendStatement.setInt(1, id);
         trustFriendStatement.setInt(2, friend_id);
-        connection.commit();
+        trustFriendStatement.executeUpdate();
     } catch (SQLException e){
         return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     } finally {

@@ -82,7 +82,7 @@ public class UserController {
         return completed;
     }
 
-    @RequestMapping(value = "/register", method =  RequestMethod.POST)
+    @RequestMapping(value = "/register", method =  RequestMethod.POST, consumes ="application/json")
     public ResponseEntity<String> register(@RequestBody User user) throws SQLException{
         ResponseEntity<String> completed = userService.register(user);
         return completed;
