@@ -223,17 +223,39 @@
             Add payment type
           </div>
 
-          <div class="ui stackable items">
-            <div class="item" style="height: 1px;">
-              <div class="image" style="text-align: center">
-                <i class="massive green payment icon"></i>
+          <div class="ui fluid big animated divided list">
+            <div class="item" ng-repeat="card in paymentTypes.card" ng-hide="paymentTypes.card.length > 0">
+              <div class="right floated red ui icon button">
+                <i class="remove circle icon"></i>
               </div>
+              <i class="payment icon"></i>
+
               <div class="content">
-                <div class="name">Debit Card [Visa]</div>
-                <p class="description">
-                  Number: XXXX-XXXX-XXXX-4267<br>
-                  Expires: XX/17
-                </p>
+
+                <div class="header">
+                  Credit/Debit Card
+                </div>
+                <div class="description">
+                  Card Number: {{card.ccnum}}<br>
+                  Expiration: XX-<b>2016</b>
+                </div>
+              </div>
+            </div>
+
+            <div class="item" ng-repeat="acc in paymentTypes.baccount">
+              <div class="right floated red ui icon button">
+                <i class="remove circle icon"></i>
+              </div>
+              <i class="building icon"></i>
+
+              <div class="content">
+
+                <div class="header">
+                  BofA Checking Account
+                </div>
+                <div class="description">
+                  Account Number: XXXXXXX - <b>{{acc.routingNumber}}</b>
+                </div>
               </div>
             </div>
           </div>
