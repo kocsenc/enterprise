@@ -72,10 +72,6 @@ public class UserController {
         return completed;
     }
 
-    //Not sure how I'm getting stuff from the view??
-    // 0 - Email already registered
-    // 1 - Completed
-    // 2 - other error??
     @RequestMapping(value = "/api/user/register", method =  RequestMethod.POST)
     public String register(@RequestBody User user){
         String completed = userService.register(user);

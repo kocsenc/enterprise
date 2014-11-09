@@ -179,11 +179,10 @@ public ResponseEntity<String> register(){
         else{
             PreparedStatement registerStatement = null;
             connection.setAutoCommit(false);
-            String addFriendString = ("INSERT INTO User VALUES " + ? + " NULL " + ? + ? + " 0.00");
+            String addFriendString = ("INSERT INTO User VALUES " + ? + ", NULL, " + ? + ", test, 0.00");
             registerStatement = connection.prepareStatement(addFriendStatement);
             registerStatement.setString(1, user.getName());
             registerStatement.setString(2, user.getEmail());
-            registerStatement.setString(3, user.getPass());
             registerStatement.executeUpdate();
         }
 
