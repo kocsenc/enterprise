@@ -75,6 +75,13 @@ app.controller('MainController', ['$scope', 'MainFactory', function ($scope, Mai
         amount: ""
     };
 
+    $scope.accountType = {
+        type: {
+            checking: true,
+            saving: false
+        }
+    };
+
 
     $('.ui.selection.dropdown')
         .dropdown()
