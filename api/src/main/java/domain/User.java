@@ -15,8 +15,10 @@ public class User {
     }
 
     public User(String name, String email){
+        this.id = 0;
         this.name = name;
         this.email = email;
+        this.wallet = 0;
     }
 
     public int getId() {
