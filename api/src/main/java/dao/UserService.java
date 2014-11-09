@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 
 import utility.DBUtility;
 import domain.User;
+import domain.FriendRequest;
 
 public class UserService {
  
@@ -220,6 +221,50 @@ public ResponseEntity<String> register(User user) throws SQLException{
         //connection.setAutoCommit(true);
         return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
     }
+}
+
+public List<FriendRequest> getFriendRequests(int id){
+    List<FriendRequest> fReqs = new ArrayList<FriendRequest>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = false");
+        while (rs.next()) {
+            int rid = rs.getInt("rid");
+            int sender = rs.getInt("sender");
+            int receiver = rs.getInt("receiver");
+            boolean trust = false;
+            FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
+            if (fReqs.contains(fReq) == false) {
+                fReqs.add(fReq);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return fReqs;
+
+}
+
+
+public List<FriendRequest> getTrustRequests(int id){
+    List<FriendRequest> tReqs = new ArrayList<FriendRequest>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = true");
+        while (rs.next()) {
+            int rid = rs.getInt("rid");
+            int sender = rs.getInt("sender");
+            int receiver = rs.getInt("receiver");
+            boolean trust = false;
+            FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
+            if (tReqs.contains(fReq) == false) {
+                tReqs.add(fReq);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return tReqs;
 }
 
 }
