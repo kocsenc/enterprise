@@ -60,19 +60,6 @@
 
 
     <div class="row">
-       <!-- <div class="four wide column">
-            <div class="ui items">
-                <div class="item" >Profile Picture
-                    <div class="image">
-                        <img src="http://www.phootoscelebrities.com/wp-content/uploads/2014/07/Brad-Pitt-smiling.jpg">
-                        <a class=" like ui corner label">
-                            <i class="edit icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-       -->
 
         <div class="five wide column">
             <h1 class = "ui header">Edit Profile
@@ -128,18 +115,27 @@
             <div class="ui form segment">
                 <div class="field">
                     <label>Cardholder Name</label>
-                    <input placeholder="Name" type="text">
+                    <input placeholder="Name" name="cardholderName" type="text">
                 </div>
                 <div class="two fields">
                     <div class="ten wide field">
                         <label>Card Number</label>
-                        <input placeholder="Card Number" type="text">
+                        <input placeholder="Card Number" name="cardNumber" type="text"
+                               maxlength="16" minlength="16" pattern="[0-9]{16}">
                     </div>
 
 
-                    <div class="six wide field" style="padding-top: 20px">
+                    <div class="six wide field">
+                        <label>CCV</label>
+                        <input placeholder="CCV" name="ccv" type="password">
+
+                    </div>
+
+                </div>
+                <div class="two fields">
+                    <div class="field" style="padding-top: 20px">
                         <div class="ui selection dropdown">
-                            <input type="hidden" name="gender">
+                            <input type="hidden" name="cardType">
                             <div class="default text">Card Type</div>
                             <i class="dropdown icon"></i>
                             <div class="menu">
@@ -148,16 +144,10 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <label>CCV</label>
-                        <input placeholder="CCV" type="password">
-                    </div>
                     <div class="date field">
                         <label>Expiration Date</label>
-                        <input type="text" placeholder="xx/xxxx">
+                        <input type="text" name="expDate" aria-required="true" pattern="(0[1-9]|1[012])[/]((20)[0-9]{2}|[0-9]{2})"
+                               placeholder="xx/xxxx">
                     </div>
                     <div class="right floated tiny green ui button">
                         <i class="checkmark icon"></i>Add Payment
