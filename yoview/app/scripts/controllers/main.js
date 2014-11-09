@@ -9,9 +9,8 @@
  */
 angular.module('paybookApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+
+    $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
+
   });
