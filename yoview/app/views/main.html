@@ -82,7 +82,7 @@
         <!-- Friends -->
         <div class="title">
           <i class="dropdown icon"></i>
-          <i class="small users icon"></i>
+          <i class="small user icon"></i>
           Friends
         </div>
         <div class="content">
@@ -90,18 +90,21 @@
             <thead>
             <tr>
               <th>Name</th>
-              <th>Cash Money</th>
               <th>Email</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="user in friends">
               <td>{{user.name}}</td>
-              <td>
-                <i class="dollar icon"></i>
-                {{user.wallet}}
-              </td>
               <td>{{user.email}}</td>
+              <td>
+                <div class="ui buttons">
+                  <div class="ui button">Request</div>
+                  <div class="or"></div>
+                  <div class="ui positive button">Pay</div>
+                </div>
+              </td>
             </tr>
             </tbody>
           </table>
