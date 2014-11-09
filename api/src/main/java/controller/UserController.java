@@ -88,4 +88,16 @@ public class UserController {
         return completed;
     }
 
+    @RequestMapping(value = "/{id}/friendrequests")
+    public List<FriendRequest> getFriendRequests(int id){
+        List<FriendRequest> fReqs = userService.getFriendRequests(id);
+        return fReqs;
+    }
+
+    @RequestMapping(value = "/{id}/trustrequests")
+    public List<FriendRequest> getFriendRequests(int id){
+        List<FriendRequest> tReqs = userService.getTrustRequests(id);
+        return tReqs;
+    }
+
 }
