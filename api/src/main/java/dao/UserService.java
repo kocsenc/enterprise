@@ -113,4 +113,111 @@ public List<user> getTrustedFriends() {
     return users;
 }
 
+public bool addFriend(){
+    bool completed = false;
+    try{
+        Statement IDstatement = connection.createStatement();
+        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + friend_email);
+        int fid = null;
+        while (rs.next()) {
+            fid = rs.getInt("uid");
+        }
+
+        if(fid = null){
+            return completed;
+        }
+        else{
+            PreparedStatement addFriendStatement = null;
+            connection.setAutoCommit(false);
+            String addFriendString = ("INSERT INTO F_Req VALUES NULL " + ? + ? + " false");
+            addFriendStatement = connection.prepareStatement(addFriendStatement);
+            addFriendStatement.setInt(1, id);
+            addFriendStatement.setInt(2, fid);
+            connection.commit();
+        }
+
+    } catch (SQLException e){
+        return completed;
+    } finally {
+        if (addFriendStatement != null) {
+            addFriendStatement.close();
+            completed = true;
+        }
+        con.setAutoCommit(true);
+        return completed;
+    }
+}
+
+
+public bool trustFriend(){
+    bool completed = false;
+    try{
+        Statement IDstatement = connection.createStatement();
+        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + friend_email);
+        int fid = null;
+        while (rs.next()) {
+            fid = rs.getInt("uid");
+        }
+
+        if(fid = null){
+            return completed;
+        }
+        else{
+            PreparedStatement trustFriendStatement = null;
+            connection.setAutoCommit(false);
+            String addFriendString = ("INSERT INTO F_Req VALUES NULL " + ? + ? + " true");
+            trustFriendStatement = connection.prepareStatement(addFriendStatement);
+            trustFriendStatement.setInt(1, id);
+            trustFriendStatement.setInt(2, fid);
+            connection.commit();
+        }
+
+    } catch (SQLException e){
+        return completed;
+    } finally {
+        if (trustFriendStatement != null) {
+            trustFriendStatement.close();
+            completed = true;
+        }
+        con.setAutoCommit(true);
+        return completed;
+    }
+}
+
+
+public int register(){
+    try{
+        Statement IDstatement = connection.createStatement();
+        ResultSet rs = IDstatement.executeQuery("select * from User where email = " + email);
+        int id = null;
+        while (rs.next()) {
+            id = rs.getInt("uid");
+        }
+
+        if(fid != null){
+            return 0;
+        }
+        else{
+            PreparedStatement registerStatement = null;
+            connection.setAutoCommit(false);
+            String addFriendString = ("INSERT INTO User VALUES " + ? + " NULL " + ? + ? + " 0.00");
+            registerStatement = connection.prepareStatement(addFriendStatement);
+            registerStatement.setString(1, name);
+            registerStatement.setString(2, email);
+            registerStatement.setString(3, pass);
+            connection.commit();
+        }
+
+    } catch (SQLException e){
+        return completed;
+    } finally {
+        if (registerStatement != null) {
+            registerStatement.close();
+            completed = true;
+        }
+        con.setAutoCommit(true);
+        return completed;
+    }
+}
+
 }

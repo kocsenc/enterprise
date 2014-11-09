@@ -57,4 +57,26 @@ public class UserController {
         return paymentType;
     }
 
+    @RequestMapping("/api/user/{id}/friend/{friend_email}")
+    public bool addFriend(@Pathbariable int id, @Pathvariable String friend_email){
+        bool completed = userService.addFriend(id, friend_email);
+        return completed;
+    }
+
+    @RequestMapping("/api/user/{id}/friend/{friend_email}")
+    public bool trustFriend(@Pathbariable int id, @Pathvariable String friend_email){
+        bool completed = userService.trustFriend(id, friend_email);
+        return completed;
+    }
+
+    //Not sure how I'm getting stuff from the view??
+    // 0 - Email already registered
+    // 1 - Completed
+    // 2 - other error??
+    @RequestMapping("/api/user/register")
+    public int register(){
+        int completed = userService.register();
+        return completed;
+    }
+
 }
