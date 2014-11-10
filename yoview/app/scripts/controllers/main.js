@@ -132,6 +132,32 @@ angular.module('paybookApp')
 
     };
 
+
+    $scope.showPaymentModal = function () {
+      $scope.paymentTypeForm = {
+        help: false,
+        type: {
+          card: false,
+          baccount: false
+        },
+
+        cardData: {
+          name: "",
+          number: "",
+          ccv: "",
+          expiration: ""
+        },
+
+        accData: {
+          routing: "",
+          number: ""
+        }
+      };
+      $('#paymentTypeModal')
+        .modal('setting', 'autofocus', false)
+        .modal('show');
+    };
+
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 
   });

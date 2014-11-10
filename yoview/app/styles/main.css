@@ -6,6 +6,11 @@ html, body {
   padding: 0px;
 }
 
+body {
+  background-image: url(../images/giftly.png);
+  background-repeat: repeat;
+}
+
 html {
 
 }
