@@ -99,6 +99,18 @@ public class UserController {
     public List<FriendRequest> getTrustRequests(@PathVariable int id){
         List<FriendRequest> tReqs = userService.getTrustRequests(id);
         return tReqs;
+
+    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      return requestService.postRequest(req);
+    }
+
+    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      req.setFulfilled(true);
+      return requestService.postRequest(req);
     }
 
 }
