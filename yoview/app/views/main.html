@@ -189,13 +189,33 @@
           My Requests
         </div>
         <div class="content">
+          <h3 class="ui header"><i class="reply mail circular icon"></i> Incoming requests</h3>
 
           <div class="ui divided list">
-            <div class="item" ng-repeat="request in requests">
+            <div class="item" ng-repeat="request in requests.toMe">
               <div class="right floated tiny teal ui button">Fulfill</div>
+              <div class="right floated tiny red ui button">Deny</div>
+
+              <div class="content">
+                <div class="header">
+                  {{findWho(request, mainUser.id)}}
+                </div>
+                <div class="description">
+                  <i class="dollar icon"></i>
+                  {{request.amount}}
+                  <br>
+                  {{request.description}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <h3 class="ui header"><i class="forward mail circular icon"></i> Outgoing requests</h3>
+
+          <div class="ui divided list">
+            <div class="item" ng-repeat="request in requests.fromMe">
               <div class="right floated tiny red ui button">Cancel</div>
-              <!-- <img class="ui avatar image" src="avatar2.jpg">
-              -->
 
               <div class="content">
                 <div class="header">

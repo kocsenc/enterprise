@@ -82,6 +82,5 @@ angular.module('paybookApp')
         return $http.get(url);
       }
 
-
     }
   });

@@ -47,7 +47,19 @@ angular.module('paybookApp')
 
         GlobalService.getUserRequests($scope.mainUser.id).
           success(function (data) {
-            $scope.requests = data;
+            $scope.requests = {
+              toMe: [],
+              fromMe: []
+            };
+            var r = $scope.requests;
+            angular.forEach(data, function (request) {
+              if ($scope.mainUser.id == request.sender) {
+                // Means main user sent it
+                r.fromMe.push(request);
+              } else {
+                r.toMe.push(request);
+              }
+            });
           }).
           error(function (err) {
             console.log(err);
@@ -56,6 +68,7 @@ angular.module('paybookApp')
         GlobalService.getFriendRequests($scope.mainUser.id).
           success(function (data) {
             $scope.friendRequests = data;
+
           }).
           error(function (err) {
             console.log(err);
@@ -67,7 +80,7 @@ angular.module('paybookApp')
             console.log(data);
             $scope.paymentTypes.card.push(data.creditCard);
             $scope.paymentTypes.baccount.push(data.bankAccount);
-          })
+          });
 
 
       });
