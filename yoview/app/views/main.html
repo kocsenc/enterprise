@@ -96,29 +96,30 @@
         </div>
         <div class="content">
 
-          <!-- Friend Requests -->
-          <table class="ui basic table" ng-show="friendRequests.length > 0">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="user in friendRequests">
-              <td>{{user.name}}</td>
-              <td>{{user.email}}</td>
-              <td>
-                <div class="ui blue button">
-                  accept request
-                </div>
-              </td>
+          <!-- TODO: Comment out when friend requests send out info -->
+          <!--&lt;!&ndash; Friend Requests &ndash;&gt;-->
+          <!--<table class="ui basic table" ng-show="friendRequests.length > 0">-->
+          <!--<thead>-->
+          <!--<tr>-->
+          <!--<th>Name</th>-->
+          <!--<th>Email</th>-->
+          <!--<th></th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--<tr ng-repeat="user in friendRequests">-->
+          <!--<td>{{user.name}}</td>-->
+          <!--<td>{{user.email}}</td>-->
+          <!--<td>-->
+          <!--<div class="ui blue button">-->
+          <!--accept request-->
+          <!--</div>-->
+          <!--</td>-->
 
-            </tr>
-            </tbody>
+          <!--</tr>-->
+          <!--</tbody>-->
 
-          </table>
+          <!--</table>-->
 
           <!-- Friends stuff -->
           <table class="ui basic table">
@@ -134,7 +135,7 @@
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
               <td>
-                <div class="ui buttons">
+                <div class="ui tiny buttons">
                   <div class="ui button">Request</div>
                   <div class="or"></div>
                   <div class="ui positive button">Pay</div>

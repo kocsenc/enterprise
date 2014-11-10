@@ -113,6 +113,9 @@ angular.module('paybookApp')
       amount: ""
     };
 
+    /**
+     * Submitting a payment request
+     */
     $scope.submitPaymentRequest = function () {
       var data = $scope.paymentForm;
 
@@ -133,6 +136,9 @@ angular.module('paybookApp')
     };
 
 
+    /**
+     * Actions related to payment modal
+     */
     $scope.showPaymentModal = function () {
       $scope.paymentTypeForm = {
         help: false,
