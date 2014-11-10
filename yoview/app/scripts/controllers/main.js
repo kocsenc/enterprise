@@ -75,6 +75,25 @@ angular.module('paybookApp')
 
     }
 
+    $scope.paymentForm = {
+      type: {
+        pay: true
+      },
+      friendSearch: "",
+      amount: "",
+      description: ""
+    };
+
+    $scope.payFriend = function (friend) {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+      $scope.paymentForm.type.pay = true;
+      $scope.paymentForm.friendSearch = friend.email;
+      $scope.paymentForm.amount = "";
+      $scope.paymentForm.description = "What did you do with " + friend.name + "?";
+
+
+    };
 
     /**
      * Quick function to see who requests are from
@@ -104,14 +123,6 @@ angular.module('paybookApp')
       return originator;
     };
 
-
-    $scope.paymentForm = {
-      type: {
-        pay: true
-      },
-      friendSearch: "",
-      amount: ""
-    };
 
     /**
      * Submitting a payment request
