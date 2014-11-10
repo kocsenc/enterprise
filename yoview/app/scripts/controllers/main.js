@@ -94,7 +94,8 @@ angular.module('paybookApp')
       },
       friendSearch: "",
       amount: "",
-      description: ""
+      description: "",
+      loading: false
     };
 
     $scope.payFriend = function (friend) {
@@ -104,7 +105,6 @@ angular.module('paybookApp')
       $scope.paymentForm.friendSearch = friend.email;
       $scope.paymentForm.amount = "";
       $scope.paymentForm.description = "What did you do with " + friend.name + "?";
-
 
     };
 
@@ -141,6 +141,16 @@ angular.module('paybookApp')
      * Submitting a payment request
      */
     $scope.submitPaymentRequest = function () {
+      // TODO: Remove, bogus waiting time
+      $scope.paymentForm.loading = true;
+      setTimeout(function () {
+        console.log('hey');
+        $scope.paymentForm.loading = false;
+        $scope.$apply();
+      }, 500);
+      // END TODO
+
+
       var data = $scope.paymentForm;
 
       var pushData = {

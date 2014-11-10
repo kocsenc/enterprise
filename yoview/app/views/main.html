@@ -34,6 +34,9 @@
 
     <div class="eleven wide column">
       <div class="ui form segment">
+        <div class="ui inverted dimmer" ng-class="{active: paymentForm.loading === true}">
+          <div class="ui text loader">Sending...</div>
+        </div>
         <h2>
           <i class="circular money icon"></i>
           Pay or Request
