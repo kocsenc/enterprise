@@ -90,15 +90,27 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/friendrequests")
-    public List<FriendRequest> getFriendRequests(@PathVariable int id){
-        List<FriendRequest> fReqs = userService.getFriendRequests(id);
+    public List<User> getFriendRequests(@PathVariable int id){
+        List<User> fReqs = userService.getFriendRequests(id);
         return fReqs;
     }
 
     @RequestMapping(value = "/{id}/trustrequests")
-    public List<FriendRequest> getTrustRequests(@PathVariable int id){
-        List<FriendRequest> tReqs = userService.getTrustRequests(id);
+    public List<User> getTrustRequests(@PathVariable int id){
+        List<User> tReqs = userService.getTrustRequests(id);
         return tReqs;
+    }
+
+    @RequestMapping(value = "/{id}/acceptFriendRequest/{friend_id}")
+    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable int friend_id)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptFriendRequest(id, friend_id);
+        return accepted;
+    }
+
+    @RequestMapping(value = "/{id}/acceptTrustRequest/{friend_id}")
+    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable int friend_id)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptTrustRequest(id, friend_id);
+        return accepted;
     }
 
 }

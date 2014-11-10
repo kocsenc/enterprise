@@ -223,19 +223,25 @@ public ResponseEntity<String> register(User user) throws SQLException{
     }
 }
 
-public List<FriendRequest> getFriendRequests(Integer id){
-    List<FriendRequest> fReqs = new ArrayList<FriendRequest>();
+public List<User> getFriendRequests(Integer id){
+    List<User> fReqs = new ArrayList<User>();
     try {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = false");
         while (rs.next()) {
-            Integer rid = rs.getInt("rid");
             Integer sender = rs.getInt("sender");
-            Integer receiver = rs.getInt("receiver");
-            boolean trust = false;
-            FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
-            if (fReqs.contains(fReq) == false) {
-                fReqs.add(fReq);
+
+            Statement getUsers = connection.createStatement();
+            ResultSet userRS = getUsers.executeQuery("select * from User where uid = " + sender);
+            while(userRS.next()){
+                int uid = userRS.getInt("uid");
+                String name = userRS.getString("uname");
+                Double wallet = userRS.getDouble("wallet");
+                String email = userRS.getString("email");
+                User user = new User(uid, name, wallet, email);
+                if(fReqs.contains(user) == false){
+                    fReqs.add(user);
+                }
             }
         }
     } catch (SQLException e) {
@@ -246,25 +252,87 @@ public List<FriendRequest> getFriendRequests(Integer id){
 }
 
 
-public List<FriendRequest> getTrustRequests(int id){
-    List<FriendRequest> tReqs = new ArrayList<FriendRequest>();
+public List<User> getTrustRequests(int id){
+    List<User> tReqs = new ArrayList<User>();
     try {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select * from F_Req where receiver = " + id + " and trust = true");
         while (rs.next()) {
-            Integer rid = rs.getInt("rid");
             Integer sender = rs.getInt("sender");
-            Integer receiver = rs.getInt("receiver");
-            boolean trust = false;
-            FriendRequest fReq = new FriendRequest(rid, sender, receiver, trust);
-            if (tReqs.contains(fReq) == false) {
-                tReqs.add(fReq);
+
+            Statement getUsers = connection.createStatement();
+            ResultSet userRS = getUsers.executeQuery("select * from User where uid = " + sender);
+            while(userRS.next()){
+                int uid = userRS.getInt("uid");
+                String name = userRS.getString("uname");
+                Double wallet = userRS.getDouble("wallet");
+                String email = userRS.getString("email");
+                User user = new User(uid, name, wallet, email);
+                if(tReqs.contains(user) == false){
+                    tReqs.add(user);
+                }
             }
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
     return tReqs;
+}
+
+public ResponseEntity<String> acceptFriendRequest(int id, int friend_id) throws SQLException{
+    PreparedStatement acceptStatement = null;
+    try{
+        Statement statement = connection.createStatement();
+        statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = false");
+
+        //connection.setAutoCommit(false);
+        String acceptString = "insert into Friends values(?, ?, false);";
+
+        acceptStatement = connection.prepareStatement(acceptString);
+        acceptStatement.setInt(1, id);
+        acceptStatement.setInt(2, friend_id);
+        acceptStatement.executeUpdate();
+
+    } catch (SQLException e){
+        e.printStackTrace();
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+        if (acceptStatement != null) {
+            acceptStatement.close();
+            return new ResponseEntity<String>(HttpStatus.CREATED);
+        }
+        //connection.setAutoCommit(true);
+        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+    }
+}
+
+
+public ResponseEntity<String> acceptTrustRequest(int id, int friend_id) throws SQLException{
+    PreparedStatement acceptStatement = null;
+    try{
+        Statement statement = connection.createStatement();
+        statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = true");
+
+        //connection.setAutoCommit(false);
+        String acceptString = "update Friends set trust = true where friend1 = ? and friend2 = ? or friend1 = ? and friend2 = ?";
+        acceptStatement = connection.prepareStatement(acceptString);
+        acceptStatement.setInt(1, id);
+        acceptStatement.setInt(2, friend_id);
+        acceptStatement.setInt(3, friend_id);
+        acceptStatement.setInt(4, id);
+        acceptStatement.executeUpdate();
+
+    } catch (SQLException e){
+        e.printStackTrace();
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+        if (acceptStatement != null) {
+            acceptStatement.close();
+            return new ResponseEntity<String>(HttpStatus.CREATED);
+        }
+        //connection.setAutoCommit(true);
+        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+    }
 }
 
 }
