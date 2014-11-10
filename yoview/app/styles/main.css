@@ -15,6 +15,6 @@ html {
 
 }
 
-.capital {
-  text-transform: lowercase;
+.ui.button {
+  text-transform: capitalize;
 }
