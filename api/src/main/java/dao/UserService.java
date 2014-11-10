@@ -279,19 +279,29 @@ public List<User> getTrustRequests(int id){
     return tReqs;
 }
 
-public ResponseEntity<String> acceptFriendRequest(int id, int friend_id) throws SQLException{
+public ResponseEntity<String> acceptFriendRequest(int id, String friend_email) throws SQLException{
     PreparedStatement acceptStatement = null;
+    Integer friend_id = 0;
     try{
-        Statement statement = connection.createStatement();
-        statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = false");
+        Statement getFriend = connection.createStatement();
+        ResultSet rs = getFriend.executeQuery("select * from User where email = " + friend_email);
 
-        //connection.setAutoCommit(false);
-        String acceptString = "insert into Friends values(?, ?, false);";
+        while(rs.next()){
+            friend_id = rs.getInt("uid");
+        }
 
-        acceptStatement = connection.prepareStatement(acceptString);
-        acceptStatement.setInt(1, id);
-        acceptStatement.setInt(2, friend_id);
-        acceptStatement.executeUpdate();
+        if(friend_id != 0) {
+            Statement statement = connection.createStatement();
+            statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = false");
+
+            //connection.setAutoCommit(false);
+            String acceptString = "insert into Friends values(?, ?, false);";
+
+            acceptStatement = connection.prepareStatement(acceptString);
+            acceptStatement.setInt(1, id);
+            acceptStatement.setInt(2, friend_id);
+            acceptStatement.executeUpdate();
+        }
 
     } catch (SQLException e){
         e.printStackTrace();
@@ -307,20 +317,31 @@ public ResponseEntity<String> acceptFriendRequest(int id, int friend_id) throws 
 }
 
 
-public ResponseEntity<String> acceptTrustRequest(int id, int friend_id) throws SQLException{
+public ResponseEntity<String> acceptTrustRequest(int id, String friend_email) throws SQLException{
     PreparedStatement acceptStatement = null;
+    int friend_id = 0;
     try{
-        Statement statement = connection.createStatement();
-        statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = true");
 
-        //connection.setAutoCommit(false);
-        String acceptString = "update Friends set trust = true where friend1 = ? and friend2 = ? or friend1 = ? and friend2 = ?";
-        acceptStatement = connection.prepareStatement(acceptString);
-        acceptStatement.setInt(1, id);
-        acceptStatement.setInt(2, friend_id);
-        acceptStatement.setInt(3, friend_id);
-        acceptStatement.setInt(4, id);
-        acceptStatement.executeUpdate();
+        Statement getFriend = connection.createStatement();
+        ResultSet rs = getFriend.executeQuery("select * from User where email = " + friend_email);
+
+        while(rs.next()){
+            friend_id = rs.getInt("uid");
+        }
+
+        if(friend_id != 0 ) {
+            Statement statement = connection.createStatement();
+            statement.executeQuery("delete from F_Req where receiver = " + id + " and receiver = " + friend_id + " and trust = true");
+
+            //connection.setAutoCommit(false);
+            String acceptString = "update Friends set trust = true where friend1 = ? and friend2 = ? or friend1 = ? and friend2 = ?";
+            acceptStatement = connection.prepareStatement(acceptString);
+            acceptStatement.setInt(1, id);
+            acceptStatement.setInt(2, friend_id);
+            acceptStatement.setInt(3, friend_id);
+            acceptStatement.setInt(4, id);
+            acceptStatement.executeUpdate();
+        }
 
     } catch (SQLException e){
         e.printStackTrace();

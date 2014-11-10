@@ -101,15 +101,15 @@ public class UserController {
         return tReqs;
     }
 
-    @RequestMapping(value = "/{id}/acceptFriendRequest/{friend_id}")
-    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable int friend_id)throws SQLException{
-        ResponseEntity<String> accepted = userService.acceptFriendRequest(id, friend_id);
+    @RequestMapping(value = "/{id}/acceptFriendRequest/{friend_email}")
+    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptFriendRequest(id, friend_email);
         return accepted;
     }
 
-    @RequestMapping(value = "/{id}/acceptTrustRequest/{friend_id}")
-    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable int friend_id)throws SQLException{
-        ResponseEntity<String> accepted = userService.acceptTrustRequest(id, friend_id);
+    @RequestMapping(value = "/{id}/acceptTrustRequest/{friend_email}")
+    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptTrustRequest(id, friend_email);
         return accepted;
     }
 
