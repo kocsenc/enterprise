@@ -1,6 +1,8 @@
 package domain;
 
 import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreditCard {
 
@@ -8,7 +10,8 @@ public class CreditCard {
   private final Date expirationDate;
   private final int ccv;
 
-  public CreditCard(Long ccnum, Date expirationDate, int ccv){
+  @JsonCreator
+  public CreditCard(@JsonProperty("ccnum") Long ccnum, @JsonProperty("exp") Date expirationDate, @JsonProperty("ccv") int ccv){
     this.ccnum = ccnum;
     this.expirationDate = expirationDate;
     this.ccv = ccv;
