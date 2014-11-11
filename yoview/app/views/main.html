@@ -68,7 +68,7 @@
           <label>3. Amount</label>
 
           <div class="ui left labeled icon input">
-            <input placeholder="$0.00" type="text" ng-model="paymentForm.amount">
+            <input placeholder="0.00" type="text" ng-model="paymentForm.amount">
             <i class="dollar icon"></i>
           </div>
         </div>
@@ -103,31 +103,33 @@
         <div class="content">
 
           <!-- Friend Requests -->
-          <h3 class="ui dividing header">
-            Friend Requests
-          </h3>
-          <table class="ui basic table" ng-show="friendRequests.length > 0">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="user in friendRequests">
-              <td>{{user.name}}</td>
-              <td>{{user.email}}</td>
-              <td>
-                <div class="ui tiny icon green button">
-                  <i class="thumbs up icon"></i>
-                </div>
-              </td>
+          <div ng-show="friendRequests.length > 0">
+            <h3 class="ui dividing header">
+              Friend Requests
+            </h3>
+            <table class="ui basic table">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="user in friendRequests">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                  <div class="ui tiny icon green button" ng-click="pushAcceptFriendReq(user)">
+                    <i class="thumbs up icon"></i>
+                  </div>
+                </td>
 
-            </tr>
-            </tbody>
+              </tr>
+              </tbody>
 
-          </table>
+            </table>
+          </div>
 
           <!-- Friends stuff -->
           <h3 class="ui dividing header">

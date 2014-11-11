@@ -156,7 +156,6 @@ angular.module('paybookApp')
       // TODO: Remove, bogus waiting time
       $scope.paymentForm.loading = true;
       setTimeout(function () {
-        console.log('hey');
         $scope.paymentForm.loading = false;
         $scope.$apply();
       }, 500);
@@ -181,6 +180,32 @@ angular.module('paybookApp')
 
     };
 
+    $scope.pushAcceptFriendReq = function (user) {
+
+      $scope.friendRequests = [];
+      $scope.friends.push(user);
+
+      // Todo: Logic for when we have endpoint debugged
+      //var pushObj = {};
+      //GlobalService.pushFriendRequestAccept($scope.mainUser.id, user.email, pushObj).
+      //  success(function () {
+      //    $scope.$broadcast('Update-All');
+      //    console.log('YAY');
+      //  });
+    };
+
+    /**
+     * Helper function to get the last 4 digits of anything
+     * @param num
+     * @returns {*}
+     */
+    $scope.lastFour = function (num) {
+      if (typeof(num) != 'undefined') {
+        var str = num.toString();
+        return str.slice(-4);
+      }
+
+    };
 
     /** #############################################
      * Actions related to payment modal
@@ -211,7 +236,12 @@ angular.module('paybookApp')
         .modal('show');
     };
 
-
+    /**
+     * Network operation.
+     * Help push a payment type.
+     *
+     * CURRENTLY ONLY WORKS FOR CCARDS
+     */
     $scope.pushPaymentType = function () {
       var data = $scope.paymentTypeForm;
       var pushObj = {};
@@ -234,13 +264,6 @@ angular.module('paybookApp')
         });
     };
 
-    $scope.lastFour = function (num) {
-      if (typeof(num) != 'undefined') {
-        var str = num.toString();
-        return str.slice(-4);
-      }
-
-    };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
   });
