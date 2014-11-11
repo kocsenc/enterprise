@@ -10,7 +10,11 @@
 angular.module('paybookApp')
   .controller('MainCtrl', function ($scope, GlobalService) {
 
-    $scope.mainUser = GlobalService.globalUser;
+    $scope.friendRequests = [];
+    $scope.paymentTypes = {
+      card: [],
+      baccount: []
+    };
     initRequests();
 
 
@@ -18,41 +22,91 @@ angular.module('paybookApp')
      * Makes initial API calls and requests
      */
     function initRequests() {
-      GlobalService.getUsers().
-        success(function (data) {
-          $scope.users = data
-        }).
-        error(function (err) {
-          console.log('mega error');
-        });
 
-      GlobalService.getFriends($scope.mainUser.id).
-        success(function (data) {
-          $scope.friends = data;
-        }).
-        error(function (err) {
-          console.log(err);
-        });
+      var promise = GlobalService.getUser("1");
+      promise.then(function (result) {
+        GlobalService.setGlobalUser(result);
+        $scope.mainUser = GlobalService.globalUser;
 
-      GlobalService.getUserRequests($scope.mainUser.id).
-        success(function (data) {
-          $scope.requests = data;
-        }).
-        error(function (err) {
-          console.log(err);
-        });
 
-      $scope.friendRequests = [];
-      GlobalService.getFriendRequests($scope.mainUser.id).
-        success(function (data) {
-          $scope.friendRequests = data;
+        GlobalService.getUsers().
+          success(function (data) {
+            $scope.users = data
+          }).
+          error(function (err) {
+            console.log('mega error');
+          });
 
-        }).
-        error(function (err) {
-          console.log(err);
-        });
+        GlobalService.getFriends($scope.mainUser.id).
+          success(function (data) {
+            $scope.friends = data;
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+        GlobalService.getUserRequests($scope.mainUser.id).
+          success(function (data) {
+            $scope.requests = {
+              toMe: [],
+              fromMe: []
+            };
+            var r = $scope.requests;
+            angular.forEach(data, function (request) {
+              if ($scope.mainUser.id == request.sender) {
+                // Means main user sent it
+                r.fromMe.push(request);
+              } else {
+                r.toMe.push(request);
+              }
+            });
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+        GlobalService.getFriendRequests($scope.mainUser.id).
+          success(function (data) {
+            $scope.friendRequests = data;
+
+          }).
+          error(function (err) {
+            console.log(err);
+          });
+
+
+        GlobalService.getPaymentTypes($scope.mainUser.id).
+          success(function (data) {
+            console.log(data);
+            $scope.paymentTypes.card.push(data.creditCard);
+            $scope.paymentTypes.baccount.push(data.bankAccount);
+          });
+
+
+      });
+
+
     }
 
+    $scope.paymentForm = {
+      type: {
+        pay: true
+      },
+      friendSearch: "",
+      amount: "",
+      description: "",
+      loading: false
+    };
+
+    $scope.payFriend = function (friend) {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+      $scope.paymentForm.type.pay = true;
+      $scope.paymentForm.friendSearch = friend.email;
+      $scope.paymentForm.amount = "";
+      $scope.paymentForm.description = "What did you do with " + friend.name + "?";
+
+    };
 
     /**
      * Quick function to see who requests are from
@@ -83,15 +137,20 @@ angular.module('paybookApp')
     };
 
 
-    $scope.paymentForm = {
-      type: {
-        pay: true
-      },
-      friendSearch: "",
-      amount: ""
-    };
-
+    /**
+     * Submitting a payment request
+     */
     $scope.submitPaymentRequest = function () {
+      // TODO: Remove, bogus waiting time
+      $scope.paymentForm.loading = true;
+      setTimeout(function () {
+        console.log('hey');
+        $scope.paymentForm.loading = false;
+        $scope.$apply();
+      }, 500);
+      // END TODO
+
+
       var data = $scope.paymentForm;
 
       var pushData = {
@@ -108,6 +167,35 @@ angular.module('paybookApp')
         // Post to request
       }
 
+    };
+
+
+    /**
+     * Actions related to payment modal
+     */
+    $scope.showPaymentModal = function () {
+      $scope.paymentTypeForm = {
+        help: false,
+        type: {
+          card: false,
+          baccount: false
+        },
+
+        cardData: {
+          name: "",
+          number: "",
+          ccv: "",
+          expiration: ""
+        },
+
+        accData: {
+          routing: "",
+          number: ""
+        }
+      };
+      $('#paymentTypeModal')
+        .modal('setting', 'autofocus', false)
+        .modal('show');
     };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});

@@ -10,6 +10,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import utility.DBUtility;
 import domain.Request;
 
@@ -68,4 +71,24 @@ public class RequestService{
     }
     return requests;
   }
+
+  public ResponseEntity<String> postRequest(Request request) {
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("insert into Request values(null,?,?,?,?,?,?,?)");
+      preparedStatement.setInt(1,request.getSender());
+      preparedStatement.setInt(2,request.getReciever());
+      preparedStatement.setString(3,request.getDescription());
+      preparedStatement.setDouble(4,request.getAmount());
+      preparedStatement.setDate(5,request.getStartDate());
+      preparedStatement.setDate(6,request.getEndDate());
+      preparedStatement.setBoolean(7,request.getFulfilled());
+      preparedStatement.executeUpdate();
+      return new ResponseEntity<String>(HttpStatus.CREATED);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  
 }

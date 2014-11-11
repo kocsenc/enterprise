@@ -18,8 +18,11 @@ import dao.PaymentTypeService;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
+
+import domain.CreditCard;
 import domain.FriendRequest;
 import java.sql.SQLException;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -83,6 +86,11 @@ public class UserController {
         return completed;
     }
 
+    @RequestMapping(value="/{id}/pay_type/credit", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id){
+      return paymentTypeService.addCreditCard(cc,id);
+    }
+
     @RequestMapping(value = "/register", method =  RequestMethod.POST, consumes ="application/json")
     public ResponseEntity<String> register(@RequestBody User user) throws SQLException{
         ResponseEntity<String> completed = userService.register(user);
@@ -113,4 +121,18 @@ public class UserController {
         return accepted;
     }
 
+    // Commented out, incomplete code
+//    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
+//    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
+//      req.setSender(id);
+//      return requestService.postRequest(req);
+//    }
+//
+//    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
+//    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
+//      req.setSender(id);
+//      req.setFulfilled(true);
+//      return requestService.postRequest(req);
+//    }
 }
+

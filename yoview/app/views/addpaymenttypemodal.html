@@ -1,0 +1,36 @@
+<!-- TODO: Import this into main.html -->
+<div class="ui modal" id="paymentTypeModal">
+  <i class="close icon"></i>
+
+  <div class="header">Add Payment Type
+  </div>
+
+  <div class="content">
+    <div class="ui form segment">
+      <div class="field">
+        <label style="text-align: center">Account Type</label>
+
+        <div class="ui buttons" style="padding-left: 75px">
+          <div class="ui button" ng-class="{teal: accountType.type.checking}"
+               ng-click="accountType.type.checking = true;accountType.type.saving = false;">Checking
+          </div>
+          <div class="ui button" ng-class="{teal: accountType.type.saving}"
+               ng-click="accountType.type.checking = false;accountType.type.saving = true;">Savings
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Routing Number</label>
+        <input type="text" maxlength="9" minlength="9" name="routingNumber" placeholder="Routing Number">
+      </div>
+      <div class="field">
+        <label>Account Number</label>
+        <input type="text" maxlength="17" minlength="3" name="accountNumber" placeholder="Account Number">
+      </div>
+      <div class="right floated tiny green ui button">
+        <i class="checkmark icon"></i>Add Payment
+      </div>
+    </div>
+  </div>
+</div>

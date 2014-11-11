@@ -16,6 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'angular-loading-bar'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -40,5 +41,5 @@ angular
       });
   })
   .controller('GlobalCtrl', function ($scope, GlobalService) {
-    GlobalService.fetchGlobalData();
+    //GlobalService.fetchGlobalData();
   });
