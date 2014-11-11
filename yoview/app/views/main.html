@@ -1,0 +1,378 @@
+<!-- Main Content container -->
+<div class="ui grid" style="padding-left: 30px" id="mainGrid">
+  <div class="row">
+    <div class="five wide column">
+      <div class="row" style="text-align: center">
+        <h1 class="ui icon header">
+          <i class="circular green money icon"></i>PayBook
+          <div class="sub header">Easy Social Payments</div>
+        </h1>
+      </div>
+
+      <div class="ui items">
+        <div class="item">
+          <div class="image">
+            <img src="http://i.imgur.com/6HQxDlT.jpg?1">
+            <a class=" like ui corner label">
+              <i class="edit icon"></i>
+            </a>
+          </div>
+          <div class="content">
+            <div class="name">{{mainUser.name}}</div>
+            <p class="description">
+              <b>Balance</b>: ${{mainUser.wallet}}<br>
+              <b>Email</b>: &nbsp {{mainUser.email}}
+            </p>
+
+            <div class="extra">
+              {{friends.length}} friends
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eleven wide column">
+      <div class="ui form segment">
+        <div class="ui inverted dimmer" ng-class="{active: paymentForm.loading === true}">
+          <div class="ui text loader">Sending...</div>
+        </div>
+        <h2>
+          <i class="circular money icon"></i>
+          Pay or Request
+        </h2>
+
+        <div class="field">
+          <label>1. Type</label>
+
+          <div class="ui buttons">
+            <div class="ui button" ng-class="{teal: paymentForm.type.pay}"
+                 ng-click="paymentForm.type.pay = true;paymentForm.type.request = false;">Pay
+            </div>
+            <div class="ui button" ng-class="{teal: paymentForm.type.request}"
+                 ng-click="paymentForm.type.pay = false;paymentForm.type.request = true;">Request
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>2. Friends</label>
+
+          <div class="ui left icon input">
+            <input placeholder="Search friends..." type="text" ng-model="paymentForm.friendSearch">
+            <i class="users icon"></i>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>3. Amount</label>
+
+          <div class="ui left labeled icon input">
+            <input placeholder="$0.00" type="text" ng-model="paymentForm.amount">
+            <i class="dollar icon"></i>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>What is it for?</label>
+
+          <div class="ui left icon input">
+            <input placeholder="Description" type="text" ng-model="paymentForm.description">
+            <i class="users icon"></i>
+          </div>
+        </div>
+
+        <div class="ui green icon submit button" ng-click="submitPaymentRequest()">
+          <i class="checkmark icon"></i>Send
+        </div>
+
+
+      </div>
+
+
+      <div class="ui fluid accordion" id="mainAccordion">
+        <!-- Friends -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="small user icon"></i>
+          Friends
+        </div>
+        <div class="content">
+
+          <!-- TODO: Comment out when friend requests send out info -->
+          <!--&lt;!&ndash; Friend Requests &ndash;&gt;-->
+          <!--<table class="ui basic table" ng-show="friendRequests.length > 0">-->
+          <!--<thead>-->
+          <!--<tr>-->
+          <!--<th>Name</th>-->
+          <!--<th>Email</th>-->
+          <!--<th></th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--<tr ng-repeat="user in friendRequests">-->
+          <!--<td>{{user.name}}</td>-->
+          <!--<td>{{user.email}}</td>-->
+          <!--<td>-->
+          <!--<div class="ui blue button">-->
+          <!--accept request-->
+          <!--</div>-->
+          <!--</td>-->
+
+          <!--</tr>-->
+          <!--</tbody>-->
+
+          <!--</table>-->
+
+          <!-- Friends stuff -->
+          <table class="ui basic table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in friends">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <div class="ui tiny buttons">
+                  <div class="ui button">Request</div>
+                  <div class="or"></div>
+                  <div class="ui positive button" ng-click="payFriend(user)">
+                    Pay
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Search People -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="small users icon"></i>
+          People
+        </div>
+        <div class="content">
+          <div class="ui left icon input">
+            <input ng-model="searchUserQuery" placeholder="Search users..." type="text">
+            <i class="users icon"></i>
+          </div>
+
+          <table class="ui basic table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users | filter:searchUserQuery">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <div class="ui tiny blue button">
+                  add friend
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Requests -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="small ticket icon"></i>
+          My Requests
+        </div>
+        <div class="content">
+          <h3 class="ui header"><i class="reply mail circular icon"></i> Incoming requests</h3>
+
+          <div class="ui divided list">
+            <div class="item" ng-repeat="request in requests.toMe">
+              <div class="right floated tiny teal ui button">Fulfill</div>
+              <div class="right floated tiny red ui button">Deny</div>
+
+              <div class="content">
+                <div class="header">
+                  {{findWho(request, mainUser.id)}}
+                </div>
+                <div class="description">
+                  <i class="dollar icon"></i>
+                  {{request.amount}}
+                  <br>
+                  {{request.description}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <h3 class="ui header"><i class="forward mail circular icon"></i> Outgoing requests</h3>
+
+          <div class="ui divided list">
+            <div class="item" ng-repeat="request in requests.fromMe">
+              <div class="right floated tiny red ui button">Cancel</div>
+
+              <div class="content">
+                <div class="header">
+                  {{findWho(request, mainUser.id)}}
+                </div>
+                <div class="description">
+                  <i class="dollar icon"></i>
+                  {{request.amount}}
+                  <br>
+                  {{request.description}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Payments -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="small payment icon"></i>
+          Payment Types
+        </div>
+        <div class="content">
+          <div class="ui green label" ng-click="showPaymentModal()">
+            <i class="plus icon"></i>
+            Add payment type
+          </div>
+
+          <div class="ui fluid big animated divided list">
+            <div class="item" ng-repeat="card in paymentTypes.card" ng-hide="paymentTypes.card.length > 0">
+              <div class="right floated red ui icon button">
+                <i class="remove circle icon"></i>
+              </div>
+              <i class="payment icon"></i>
+
+              <div class="content">
+
+                <div class="header">
+                  Credit/Debit Card
+                </div>
+                <div class="description">
+                  Card Number: {{card.ccnum}}<br>
+                  Expiration: XX-<b>2016</b>
+                </div>
+              </div>
+            </div>
+
+            <div class="item" ng-repeat="acc in paymentTypes.baccount">
+              <div class="right floated red ui icon button">
+                <i class="remove circle icon"></i>
+              </div>
+              <i class="building icon"></i>
+
+              <div class="content">
+
+                <div class="header">
+                  BofA Checking Account
+                </div>
+                <div class="description">
+                  Account Number: XXXXXXX - <b>{{acc.routingNumber}}</b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="ui modal" id="paymentTypeModal">
+  <i class="close icon"></i>
+
+  <div class="header">Add Payment Type
+  </div>
+
+  <div class="content">
+    <div class="ui form segment">
+      <div class="field" style="text-align: center">
+        <label style="text-align: center">Chose Account Type</label>
+
+        <div class="ui buttons">
+          <div class="ui labeled icon button" ng-class="{teal: paymentTypeForm.type.card}"
+               ng-click="paymentTypeForm.type.card = true; paymentTypeForm.type.baccount = false;">
+            <i class="payment icon"></i>
+            Card
+          </div>
+          <div class="ui right labeled icon button" ng-class="{teal: paymentTypeForm.type.baccount}"
+               ng-click="paymentTypeForm.type.card = false; paymentTypeForm.type.baccount = true;">
+            <i class="building icon"></i>
+            Bank
+          </div>
+        </div>
+      </div>
+
+      <!-- If Credit Card -->
+      <div ng-show="paymentTypeForm.type.card">
+        <div class="field">
+          <label>Cardholder Name</label>
+          <input ng-model="paymentTypeForm.cardData.name" placeholder="As appears on billing address"
+                 name="cardholderName" type="text">
+        </div>
+        <div class="three fields">
+          <div class="seven wide field">
+            <label>Card Number</label>
+            <input ng-model="paymentTypeForm.cardData.number" placeholder="1234-5667-2341-4406" name="cardNumber"
+                   type="text"
+                   maxlength="16" minlength="16" pattern="[0-9]{16}">
+          </div>
+
+          <div class="four wide field">
+            <label>CCV</label>
+            <input ng-model="paymentTypeForm.cardData.ccv" placeholder="CCV" name="ccv" type="password">
+          </div>
+
+          <div class="five wide date field">
+            <label>Expiration Date</label>
+            <input ng-model="paymentTypeForm.cardData.expiration" type="text" name="expDate" aria-required="true"
+                   pattern="(0[1-9]|1[012])[/]((20)[0-9]{2}|[0-9]{2})"
+                   placeholder="xx/xxxx">
+          </div>
+        </div>
+      </div>
+
+      <!-- If Bank account -->
+      <div ng-show="paymentTypeForm.type.baccount">
+        <div style="text-align: center">
+          <img ng-show="paymentTypeForm.help"
+               src="http://static.nationwide.com/static/Bank_Check.gif?r=40">
+        </div>
+        <div class="field">
+          <label>Routing Number <i class="help icon" ng-click="paymentTypeForm.help = !paymentTypeForm.help;"></i>
+          </label>
+          <input ng-model="paymentTypeForm.accData.routing" type="text" maxlength="9" minlength="9" name="routingNumber"
+                 placeholder="044-072-324">
+        </div>
+        <div class="field">
+          <label>Account Number <i class="help icon"
+                                   ng-click="paymentTypeForm.help = !paymentTypeForm.help;"></i></label>
+          <input ng-model="paymentTypeForm.accData.number" type="text" maxlength="17" minlength="3" name="accountNumber"
+                 placeholder="999-123-456-789">
+        </div>
+      </div>
+
+      <div class="right floated tiny green ui button"
+           ng-hide="paymentTypeForm.type.baccount && paymentTypeForm.type.card">
+        <i class="checkmark icon"></i>Add Payment Type
+      </div>
+    </div>
+  </div>
+</div>

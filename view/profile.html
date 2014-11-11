@@ -60,19 +60,6 @@
 
 
     <div class="row">
-       <!-- <div class="four wide column">
-            <div class="ui items">
-                <div class="item" >Profile Picture
-                    <div class="image">
-                        <img src="http://www.phootoscelebrities.com/wp-content/uploads/2014/07/Brad-Pitt-smiling.jpg">
-                        <a class=" like ui corner label">
-                            <i class="edit icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-           -->
 
         <div class="five wide column">
             <h1 class = "ui header">Edit Profile
@@ -102,30 +89,109 @@
                         <input type="password">
                     </div>
                 </div>
-                <div class="field">
-                    <label>new password </label>
-                    <div class="ui left labeled icon input">
-                        <input type="password">
+                <div class="two fields">
+                    <div class="field">
+                        <label>new password </label>
+                        <div class="ui left labeled icon input">
+                            <input type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <label>confirm new password </label>
-                    <div class="ui left labeled icon input">
-                        <input type="password">
+                    <div class="field">
+                        <label>confirm new password </label>
+                        <div class="ui left labeled icon input">
+                            <input type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="right floated tiny green ui button">
-                    <i class="checkmark icon"></i>Save Changes
+                    <div class="right floated tiny green ui button">
+                        <i class="checkmark icon"></i>Save Changes
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="five wide column">
+            <h1 class="ui header">Add Credit Card
+            </h1>
+            <div class="ui form segment">
+                <div class="field">
+                    <label>Cardholder Name</label>
+                    <input placeholder="Name" name="cardholderName" type="text">
+                </div>
+                <div class="two fields">
+                    <div class="ten wide field">
+                        <label>Card Number</label>
+                        <input placeholder="Card Number" name="cardNumber" type="text"
+                               maxlength="16" minlength="16" pattern="[0-9]{16}">
+                    </div>
+
+
+                    <div class="six wide field">
+                        <label>CCV</label>
+                        <input placeholder="CCV" name="ccv" type="password">
+
+                    </div>
+
+                </div>
+                <div class="two fields">
+                    <div class="field" style="padding-top: 20px">
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="cardType">
+                            <div class="default text">Card Type</div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item" data-value="1">Visa</div>
+                                <div class="item" data-value="0">MasterCard</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date field">
+                        <label>Expiration Date</label>
+                        <input type="text" name="expDate" aria-required="true"
+                               pattern="(0[1-9]|1[012])[/]((20)[0-9]{2}|[0-9]{2})"
+                               placeholder="xx/xxxx">
+                    </div>
+                </div>
+                <div class="right floated tiny green ui button">
+                    <i class="checkmark icon"></i>Add Payment
+                </div>
+
+            </div>
+        </div>
+
+        <div class="five wide column">
+            <h1 class="ui header">Add Bank Account
+            </h1>
+
+            <div class="ui form segment">
+                <div class="field">
+                    <label style="text-align: center">Account Type</label>
+
+                    <div class="ui buttons" style="padding-left: 75px">
+                        <div class="ui button" ng-class="{teal: accountType.type.checking}"
+                             ng-click="accountType.type.checking = true;accountType.type.saving = false;">Checking
+                        </div>
+                        <div class="ui button" ng-class="{teal: accountType.type.saving}"
+                             ng-click="accountType.type.checking = false;accountType.type.saving = true;">Savings
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Routing Number</label>
+                    <input type="text" maxlength="9" minlength="9" name="routingNumber" placeholder="Routing Number">
+                </div>
+                <div class="field">
+                    <label>Account Number</label>
+                    <input type="text" maxlength="17" minlength="3" name="accountNumber" placeholder="Account Number">
+                </div>
+                <div class="right floated tiny green ui button">
+                    <i class="checkmark icon"></i>Add Payment
+                </div>
+            </div>
+
+        </div>
 
      </div>
-
-</div>
-
 
 </div>
 </body>

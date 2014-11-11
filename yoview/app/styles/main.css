@@ -1,0 +1,20 @@
+
+html, body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-image: url(../images/giftly.png);
+  background-repeat: repeat;
+}
+
+html {
+
+}
+
+.ui.button {
+  text-transform: capitalize;
+}

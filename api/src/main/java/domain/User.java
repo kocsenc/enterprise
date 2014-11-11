@@ -1,5 +1,8 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
 
     private final int id;
@@ -12,6 +15,14 @@ public class User {
         this.name = name;
         this.wallet = wallet;
         this.email = email;
+    }
+
+    @JsonCreator
+    public User(@JsonProperty("name") String name, @JsonProperty("email") String email){
+        this.id = 0;
+        this.name = name;
+        this.email = email;
+        this.wallet = 0;
     }
 
     public int getId() {
