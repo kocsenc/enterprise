@@ -170,8 +170,9 @@ angular.module('paybookApp')
     };
 
 
-    /**
+    /** #############################################
      * Actions related to payment modal
+     * ##########################################
      */
     $scope.showPaymentModal = function () {
       $scope.paymentTypeForm = {
@@ -197,6 +198,26 @@ angular.module('paybookApp')
         .modal('setting', 'autofocus', false)
         .modal('show');
     };
+
+
+    $scope.pushPaymentType = function () {
+      var data = $scope.paymentTypeForm;
+      var pushObj = {};
+
+      if (data.type.card) {
+        var cdata = data.cardData;
+        pushObj.ccv = cdata.ccv;
+        pushObj.ccnum = cdata.number;
+        var expiration = cdata.expiration.split('/');
+        pushObj.exp = expiration[1] + "-" + expiration[0] + "-01";
+      } else {
+        var baccData = data.accData;
+      }
+
+
+      GlobalService.pushPaymentType($scope.mainUser.id, pushObj);
+    };
+
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 
