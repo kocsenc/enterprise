@@ -243,5 +243,4 @@ angular.module('paybookApp')
     };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
-
   });

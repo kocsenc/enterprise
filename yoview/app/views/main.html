@@ -96,35 +96,43 @@
           <i class="dropdown icon"></i>
           <i class="small user icon"></i>
           Friends
+          <div class="ui small orange label" ng-show="friendRequests.length > 0">
+            <i class="attention icon"></i>{{friendRequests.length}}
+          </div>
         </div>
         <div class="content">
 
-          <!-- TODO: Comment out when friend requests send out info -->
-          <!--&lt;!&ndash; Friend Requests &ndash;&gt;-->
-          <!--<table class="ui basic table" ng-show="friendRequests.length > 0">-->
-          <!--<thead>-->
-          <!--<tr>-->
-          <!--<th>Name</th>-->
-          <!--<th>Email</th>-->
-          <!--<th></th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-          <!--<tr ng-repeat="user in friendRequests">-->
-          <!--<td>{{user.name}}</td>-->
-          <!--<td>{{user.email}}</td>-->
-          <!--<td>-->
-          <!--<div class="ui blue button">-->
-          <!--accept request-->
-          <!--</div>-->
-          <!--</td>-->
+          <!-- Friend Requests -->
+          <h3 class="ui dividing header">
+            Friend Requests
+          </h3>
+          <table class="ui basic table" ng-show="friendRequests.length > 0">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in friendRequests">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <div class="ui tiny icon green button">
+                  <i class="thumbs up icon"></i>
+                </div>
+              </td>
 
-          <!--</tr>-->
-          <!--</tbody>-->
+            </tr>
+            </tbody>
 
-          <!--</table>-->
+          </table>
 
           <!-- Friends stuff -->
+          <h3 class="ui dividing header">
+            Friends
+          </h3>
           <table class="ui basic table">
             <thead>
             <tr>
@@ -250,7 +258,7 @@
           </div>
 
           <div class="ui fluid big animated divided list">
-            <div class="item" ng-hide="paymentTypes.card == null">
+            <div class="item" ng-hide="paymentTypes.card === null">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
@@ -267,7 +275,7 @@
               </div>
             </div>
 
-            <div class="item">
+            <div class="item" ng-hide="paymentTypes.baccount === null">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
