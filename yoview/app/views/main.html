@@ -250,7 +250,7 @@
           </div>
 
           <div class="ui fluid big animated divided list">
-            <div class="item" ng-repeat="card in paymentTypes.card" ng-hide="paymentTypes.card.length > 0">
+            <div class="item" ng-repeat="card in paymentTypes.card" ng-show="paymentTypes.card.length > 0">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
@@ -262,7 +262,7 @@
                   Credit/Debit Card
                 </div>
                 <div class="description">
-                  Card Number: {{card.ccnum}}<br>
+                  Card Number: XXXX-XXXX-XXXX-{{lastFour(card.ccnum)}}<br>
                   Expiration: XX-<b>2016</b>
                 </div>
               </div>

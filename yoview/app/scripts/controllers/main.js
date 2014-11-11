@@ -235,6 +235,10 @@ angular.module('paybookApp')
         });
     };
 
+    $scope.lastFour = function (num) {
+      var str = num.toString();
+      return str.slice(-4);
+    };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
 
