@@ -34,91 +34,90 @@ public class UserController {
 
     @RequestMapping("/all")
     public List<User> getAllUsers() {
-      List<User> users=userService.getAllUsers();
-      return users;
+        List<User> users = userService.getAllUsers();
+        return users;
     }
 
     @RequestMapping("/{id}/getuser")
-    public User getUser(@PathVariable int id){
+    public User getUser(@PathVariable int id) {
         User user = userService.getUser(id);
         return user;
     }
 
     @RequestMapping("/{id}/requests")
-    public List<Request> getRequestsById(@PathVariable int id){
-      List<Request> requests = requestService.getRequestsById(id);
-      return requests;
+    public List<Request> getRequestsById(@PathVariable int id) {
+        List<Request> requests = requestService.getRequestsById(id);
+        return requests;
     }
 
     @RequestMapping("/{id}/payments")
-    public List<Request> getPaymentsById(@PathVariable int id){
-      List<Request> requests = requestService.getPaymentsById(id);
-      return requests;
+    public List<Request> getPaymentsById(@PathVariable int id) {
+        List<Request> requests = requestService.getPaymentsById(id);
+        return requests;
     }
 
     @RequestMapping("/{id}/pay_types")
-    public PaymentType getPaymentTypeById(@PathVariable int id){
-      PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
-      return paymentType;
+    public PaymentType getPaymentTypeById(@PathVariable int id) {
+        PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
+        return paymentType;
     }
 
     @RequestMapping("/{id}/friends")
-    public List<User> getFriends(@PathVariable int id){
-        List<User> users=userService.getFriends(id);
+    public List<User> getFriends(@PathVariable int id) {
+        List<User> users = userService.getFriends(id);
         return users;
     }
 
     @RequestMapping("/{id}/trusted_friends")
-    public List<User> getTrustedFriends(@PathVariable int id){
-        List<User> users=userService.getTrustedFriends(id);
+    public List<User> getTrustedFriends(@PathVariable int id) {
+        List<User> users = userService.getTrustedFriends(id);
         return users;
     }
 
     @RequestMapping("/{id}/addfriend/{friend_id}")
-    public ResponseEntity<String> addFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
+    public ResponseEntity<String> addFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException {
         ResponseEntity<String> completed = userService.addFriend(id, friend_id);
         return completed;
     }
 
     @RequestMapping("/{id}/trustfriend/{friend_id}")
-    public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
+    public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException {
         ResponseEntity<String> completed = userService.trustFriend(id, friend_id);
         return completed;
     }
 
-    @RequestMapping(value="/{id}/pay_type/credit", method=RequestMethod.POST, consumes="application/json")
-    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id){
-      return paymentTypeService.addCreditCard(cc,id);
+    @RequestMapping(value = "/{id}/pay_type/credit", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id) {
+        return paymentTypeService.addCreditCard(cc, id);
     }
 
-    @RequestMapping(value = "/register", method =  RequestMethod.POST, consumes ="application/json")
-    public ResponseEntity<String> register(@RequestBody User user) throws SQLException{
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> register(@RequestBody User user) throws SQLException {
         ResponseEntity<String> completed = userService.register(user);
         return completed;
     }
 
     @RequestMapping(value = "/{id}/friendrequests")
-    public List<User> getFriendRequests(@PathVariable int id){
+    public List<User> getFriendRequests(@PathVariable int id) {
         List<User> fReqs = userService.getFriendRequests(id);
         return fReqs;
     }
 
     @RequestMapping(value = "/{id}/trustrequests")
-    public List<User> getTrustRequests(@PathVariable int id){
+    public List<User> getTrustRequests(@PathVariable int id) {
         List<User> tReqs = userService.getTrustRequests(id);
         return tReqs;
     }
 
     @RequestMapping(value = "/{id}/acceptFriendRequest/{friend_email}")
-    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable String friend_email) throws SQLException {
         ResponseEntity<String> accepted = userService.acceptFriendRequest(id, friend_email);
         return accepted;
     }
 
     @RequestMapping(value = "/{id}/acceptTrustRequest/{friend_email}")
-    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable String friend_email) throws SQLException {
         ResponseEntity<String> accepted = userService.acceptTrustRequest(id, friend_email);
         return accepted;
     }
-
 }
