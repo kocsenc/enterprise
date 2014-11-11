@@ -250,25 +250,24 @@
           </div>
 
           <div class="ui fluid big animated divided list">
-            <div class="item" ng-repeat="card in paymentTypes.card" ng-show="paymentTypes.card.length > 0">
+            <div class="item" ng-hide="paymentTypes.card == null">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
               <i class="payment icon"></i>
 
               <div class="content">
-
                 <div class="header">
                   Credit/Debit Card
                 </div>
                 <div class="description">
-                  Card Number: XXXX-XXXX-XXXX-{{lastFour(card.ccnum)}}<br>
+                  Card Number: XXXX-XXXX-XXXX-{{lastFour(paymentTypes.card.ccnum)}}<br>
                   Expiration: XX-<b>2016</b>
                 </div>
               </div>
             </div>
 
-            <div class="item" ng-repeat="acc in paymentTypes.baccount">
+            <div class="item">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
@@ -280,7 +279,7 @@
                   BofA Checking Account
                 </div>
                 <div class="description">
-                  Account Number: XXXXXXX - <b>{{acc.routingNumber}}</b>
+                  Account Number: XXXXXXX - <b>{{paymentTypes.baccount.routingNumber}}</b>
                 </div>
               </div>
             </div>

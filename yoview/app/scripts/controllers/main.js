@@ -94,10 +94,8 @@ angular.module('paybookApp')
 
       GlobalService.getPaymentTypes($scope.mainUser.id).
         success(function (data) {
-          $scope.paymentTypes.card = [];
-          $scope.paymentTypes.baccount = [];
-          $scope.paymentTypes.card.push(data.creditCard);
-          $scope.paymentTypes.baccount.push(data.bankAccount);
+          $scope.paymentTypes.card = data.creditCard;
+          $scope.paymentTypes.baccount = data.bankAccount;
         });
 
     }
@@ -237,8 +235,11 @@ angular.module('paybookApp')
     };
 
     $scope.lastFour = function (num) {
-      var str = num.toString();
-      return str.slice(-4);
+      if (typeof(num) != 'undefined') {
+        var str = num.toString();
+        return str.slice(-4);
+      }
+
     };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
