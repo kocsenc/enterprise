@@ -90,29 +90,27 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/friendrequests")
-    public List<FriendRequest> getFriendRequests(@PathVariable int id){
-        List<FriendRequest> fReqs = userService.getFriendRequests(id);
+    public List<User> getFriendRequests(@PathVariable int id){
+        List<User> fReqs = userService.getFriendRequests(id);
         return fReqs;
     }
 
     @RequestMapping(value = "/{id}/trustrequests")
-    public List<FriendRequest> getTrustRequests(@PathVariable int id) {
-        List<FriendRequest> tReqs = userService.getTrustRequests(id);
+    public List<User> getTrustRequests(@PathVariable int id){
+        List<User> tReqs = userService.getTrustRequests(id);
         return tReqs;
     }
 
-    // Commented out, incomplete code
-//    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
-//    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
-//      req.setSender(id);
-//      return requestService.postRequest(req);
-//    }
-//
-//    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
-//    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
-//      req.setSender(id);
-//      req.setFulfilled(true);
-//      return requestService.postRequest(req);
-//    }
+    @RequestMapping(value = "/{id}/acceptFriendRequest/{friend_email}")
+    public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptFriendRequest(id, friend_email);
+        return accepted;
+    }
+
+    @RequestMapping(value = "/{id}/acceptTrustRequest/{friend_email}")
+    public ResponseEntity<String> acceptTrustRequest(@PathVariable int id, @PathVariable String friend_email)throws SQLException{
+        ResponseEntity<String> accepted = userService.acceptTrustRequest(id, friend_email);
+        return accepted;
+    }
 
 }
