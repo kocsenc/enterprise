@@ -15,6 +15,10 @@ import domain.PaymentType;
 import domain.CreditCard;
 import domain.BankAccount;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+
 public class PaymentTypeService {
 
   private Connection connection;
@@ -59,6 +63,55 @@ public class PaymentTypeService {
       e.printStackTrace();
     }
     return paymentType;
+  }
+
+  public ResponseEntity<String> addCreditCard(CreditCard cc, int userId){
+    PreparedStatement preparedStatement = null;
+    PreparedStatement ccIdStatement = null;
+    PreparedStatement paymentTypeStatement = null;
+    ResponseEntity response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    try {
+      preparedStatement = connection.prepareStatement("insert into Credit_Card value(null,?,?,?)");
+      preparedStatement.setLong(1,cc.getCcnum());
+      preparedStatement.setDate(2,cc.getExpirationDate());
+      preparedStatement.setInt(3,cc.getCCV());
+      preparedStatement.executeUpdate();
+
+      ccIdStatement = connection.prepareStatement("select ccid from Credit_Card where ccnum = ? and ccv = ?");
+      ccIdStatement.setLong(1,cc.getCcnum());
+      ccIdStatement.setInt(2,cc.getCCV());
+      ResultSet rs = ccIdStatement.executeQuery();
+      
+      Integer ccid = null;
+      while(rs.next()){
+        ccid = rs.getInt("ccid");
+      }
+
+      paymentTypeStatement = connection.prepareStatement("update Payment_Type set creditcard = ? where uid = ?");
+      paymentTypeStatement.setInt(1,ccid);
+      paymentTypeStatement.setInt(2,userId);
+      paymentTypeStatement.executeUpdate();
+      response = new ResponseEntity<String>(HttpStatus.CREATED);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+        if (ccIdStatement != null) {
+          ccIdStatement.close();
+        }
+        if (paymentTypeStatement != null) {
+          paymentTypeStatement.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      
+    }
+    return response;
   }
 
 }

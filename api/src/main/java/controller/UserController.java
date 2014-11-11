@@ -16,6 +16,7 @@ import dao.PaymentTypeService;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
+import domain.CreditCard;
 
 @RestController
 @RequestMapping("/api/user")
@@ -61,5 +62,11 @@ public class UserController {
       req.setFulfilled(true);
       return requestService.postRequest(req);
     }
+
+    @RequestMapping(value="/{id}/pay_type/credit", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id){
+      return paymentTypeService.addCreditCard(cc,id);
+    }
+
 
 }
