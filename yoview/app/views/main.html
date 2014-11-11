@@ -370,7 +370,8 @@
       </div>
 
       <div class="right floated tiny green ui button"
-           ng-hide="paymentTypeForm.type.baccount && paymentTypeForm.type.card">
+           ng-show="paymentTypeForm.type.baccount || paymentTypeForm.type.card"
+           ng-click="pushPaymentType()">
         <i class="checkmark icon"></i>Add Payment Type
       </div>
     </div>

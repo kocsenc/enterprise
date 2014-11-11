@@ -95,7 +95,7 @@ angular.module('paybookApp')
       pushPaymentType: function (uid, data) {
         var muid = "/" + uid;
         if (data.ccv) {
-          var url = this.baseurl + this.user + muid + "/pay_types/credit"
+          var url = this.baseurl + this.user + muid + "/pay_type/credit";
           return $http.post(url, data);
 
         }
