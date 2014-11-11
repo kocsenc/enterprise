@@ -18,8 +18,11 @@ import dao.PaymentTypeService;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
+
+import domain.CreditCard;
 import domain.FriendRequest;
 import java.sql.SQLException;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -81,6 +84,11 @@ public class UserController {
     public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
         ResponseEntity<String> completed = userService.trustFriend(id, friend_id);
         return completed;
+    }
+
+    @RequestMapping(value="/{id}/pay_type/credit", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id){
+      return paymentTypeService.addCreditCard(cc,id);
     }
 
     @RequestMapping(value = "/register", method =  RequestMethod.POST, consumes ="application/json")
