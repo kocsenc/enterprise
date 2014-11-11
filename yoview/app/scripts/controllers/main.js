@@ -94,7 +94,8 @@ angular.module('paybookApp')
 
       GlobalService.getPaymentTypes($scope.mainUser.id).
         success(function (data) {
-          console.log(data);
+          $scope.paymentTypes.card = [];
+          $scope.paymentTypes.baccount = [];
           $scope.paymentTypes.card.push(data.creditCard);
           $scope.paymentTypes.baccount.push(data.bankAccount);
         });
