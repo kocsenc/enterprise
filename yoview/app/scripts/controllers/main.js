@@ -182,16 +182,18 @@ angular.module('paybookApp')
 
     $scope.pushAcceptFriendReq = function (user) {
 
-      $scope.friendRequests = [];
-      $scope.friends.push(user);
+      //$scope.friendRequests = [];
+      //$scope.friends.push(user);
 
-      // Todo: Logic for when we have endpoint debugged
-      //var pushObj = {};
-      //GlobalService.pushFriendRequestAccept($scope.mainUser.id, user.email, pushObj).
-      //  success(function () {
-      //    $scope.$broadcast('Update-All');
-      //    console.log('YAY');
-      //  });
+      //Todo: Logic for when we have endpoint debugged
+      var pushObj = {
+        email: user.email
+      };
+      GlobalService.pushFriendRequestAccept($scope.mainUser.id, pushObj).
+        success(function () {
+          $scope.$broadcast('Update-All');
+          console.log('YAY');
+        });
     };
 
     /**

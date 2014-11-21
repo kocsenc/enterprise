@@ -103,9 +103,9 @@ angular.module('paybookApp')
         //}
       },
 
-      pushFriendRequestAccept: function (uid, friendEmail, data) {
+      pushFriendRequestAccept: function (uid, data) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.user + muid + "/acceptFriendRequest/" + friendEmail;
+        var url = this.baseurl + this.user + muid + "/acceptFriendRequest/";
         return $http.post(url, data);
       }
 
