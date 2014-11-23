@@ -38,10 +38,7 @@ angular.module('paybookApp')
           error(function (userErr) {
             console.log('user Error');
           });
-
-
       },
-
 
       // Online Services
       baseurl: "/api",
@@ -129,7 +126,7 @@ angular.module('paybookApp')
 
       pushAddFriend: function (uid, payload) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.user + muid + "/addFriend/" + payload.id;
+        var url = this.baseurl + this.user + muid + "/addfriend/" + payload.id;
         return $http.post(url, payload);
       }
 
