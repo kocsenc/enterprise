@@ -187,8 +187,10 @@ angular.module('paybookApp')
 
       //Todo: Logic for when we have endpoint debugged
       var pushObj = {
-        email: user.email
+        email: user.email,
+        name: user.name
       };
+
       GlobalService.pushFriendRequestAccept($scope.mainUser.id, pushObj).
         success(function () {
           $scope.$broadcast('Update-All');
