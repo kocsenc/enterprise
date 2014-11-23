@@ -74,14 +74,14 @@ public class UserController {
         return users;
     }
 
-    @RequestMapping("/{id}/addfriend/{friend_id}")
-    public ResponseEntity<String> addFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException {
+    @RequestMapping(value = "/{id}/addfriend/{friend_id}", method = RequestMethod.POST)
+    public ResponseEntity<String> addFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
         ResponseEntity<String> completed = userService.addFriend(id, friend_id);
         return completed;
     }
 
-    @RequestMapping("/{id}/trustfriend/{friend_id}")
-    public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException {
+    @RequestMapping(value = "/{id}/trustfriend/{friend_id}", method = RequestMethod.POST)
+    public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
         ResponseEntity<String> completed = userService.trustFriend(id, friend_id);
         return completed;
     }
