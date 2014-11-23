@@ -24,7 +24,7 @@
               <b>Email</b>: &nbsp {{mainUser.email}}
             </p>
 
-            <div class="extra">
+            <div class="extra" ng-show="friends.length > 0">
               {{friends.length}} friends
             </div>
           </div>
@@ -186,7 +186,7 @@
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
               <td>
-                <div class="ui tiny blue button">
+                <div class="ui tiny blue button" ng-click="friendRequest(user)" ng-show="">
                   add friend
                 </div>
               </td>
@@ -245,6 +245,18 @@
 
           </div>
 
+        </div>
+
+
+        <!-- Campaigns -->
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <i class="bullhorn icon"></i>
+          My Campaigns
+        </div>
+        <div class="content">
+
+          <p>yolo</p>
         </div>
 
         <!-- Payments -->

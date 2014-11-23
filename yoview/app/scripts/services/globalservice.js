@@ -125,6 +125,12 @@ angular.module('paybookApp')
         var muid = "/" + uid;
         var url = this.baseurl + this.user + muid + "/acceptFriendRequest/";
         return $http.post(url, data);
+      },
+
+      pushAddFriend: function (uid, payload) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/addFriend/" + payload.id;
+        return $http.post(url, payload);
       }
 
     }
