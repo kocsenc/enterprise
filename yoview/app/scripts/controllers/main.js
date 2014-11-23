@@ -204,8 +204,6 @@ angular.module('paybookApp')
 
     $scope.pushAcceptFriendReq = function (user) {
 
-      //$scope.friendRequests = [];
-      //$scope.friends.push(user);
 
       //Todo: Logic for when we have endpoint debugged
       var pushObj = {
