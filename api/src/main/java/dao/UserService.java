@@ -362,3 +362,4 @@ public ResponseEntity<String> acceptTrustRequest(int id, User friend) throws SQL
 }
 
 }
+
