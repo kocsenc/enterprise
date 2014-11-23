@@ -1,25 +1,32 @@
-
-<div class="ui grid" id="campaignGrid">
-  <div class="row">
-    <div class="four wide column">
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../../bower_components/semantic-ui/build/packaged/css/semantic.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body>
+<div class="ui stackable items">
+  <div class="item" style="min-height: 10px">
+    <div class="content">
+      <div class="meta">end date</div>
+      <div class="name">Campaign Title</div>
+      <p class="description">Campaign Description</p>
     </div>
-    <div class="eight wide column">
-      <div class="ui form segment" id="campaign">
-        <div class="two fields">
-          <div class="field">
-            <h2 class="ui header" style="text-align: left">Campaign Title</h2>
-          </div>
-          <div class="field">
-            <h3 style="text-align: right">end Date</h3>
-          </div>
-        </div>
-        <div class="field">
-          <p>Description</p>
-        </div>
-        <div class="field">
-          <label style="text-align: right">current $ / goal $</label>
-        </div>
-      </div>
+    <div class="extra">
+      current $ / goal $
     </div>
   </div>
 </div>
+</body>
+</html>
