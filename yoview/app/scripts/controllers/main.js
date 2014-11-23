@@ -282,10 +282,18 @@ angular.module('paybookApp')
 
       console.log(pushObj);
       GlobalService.pushPaymentType($scope.mainUser.id, pushObj).
-        success(function (data) {
+        success(function () {
           $scope.$broadcast('Update-All');
           $('#paymentTypeModal').modal('hide');
         });
+    };
+
+    $scope.friendRequest = function (userObject) {
+      userObject.requested = true;
+      GlobalService.pushAddFriend($scope.mainUser.id, userObject).
+        success(function () {
+          $scope.$broadcast('Update-All');
+        })
     };
 
 
