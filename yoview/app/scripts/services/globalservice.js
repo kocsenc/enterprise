@@ -46,6 +46,7 @@ angular.module('paybookApp')
       // Online Services
       baseurl: "/api",
       user: "/user",
+      camp: "/campaign",
 
       getUsers: function () {
         return $http.get(this.baseurl + this.user + "/all");
@@ -82,6 +83,23 @@ angular.module('paybookApp')
         return $http.get(url);
       },
 
+      getMyCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/campaigns";
+        return $http.get(url);
+      },
+
+      getFriendsCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/friend_campaigns";
+        return $http.get(url);
+      },
+
+      getContributedCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/contribute";
+        return $http.get(url);
+      },
 
       /* POSTING STUFF */
 

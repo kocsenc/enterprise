@@ -98,6 +98,28 @@ angular.module('paybookApp')
           $scope.paymentTypes.baccount = data.bankAccount;
         });
 
+      $scope.campaigns = {
+        mine: [],
+        friends: [],
+        contributed: []
+      };
+
+      GlobalService.getMyCampaigns($scope.mainUser.id).
+        success(function (data) {
+          $scope.campaigns.mine = data
+        });
+
+      GlobalService.getFriendsCampaigns($scope.mainUser.id).
+        success(function (data) {
+          $scope.campaigns.friends = data;
+        });
+
+      GlobalService.getContributedCampaigns($scope.mainUser.id).
+        success(function (data) {
+          $scope.campaigns.contributed = data;
+        });
+
+
     }
 
     $scope.paymentForm = {
