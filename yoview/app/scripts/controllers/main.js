@@ -28,63 +28,75 @@ angular.module('paybookApp')
         GlobalService.setGlobalUser(result);
         $scope.mainUser = GlobalService.globalUser;
 
-
-        GlobalService.getUsers().
-          success(function (data) {
-            $scope.users = data
-          }).
-          error(function (err) {
-            console.log('mega error');
-          });
-
-        GlobalService.getFriends($scope.mainUser.id).
-          success(function (data) {
-            $scope.friends = data;
-          }).
-          error(function (err) {
-            console.log(err);
-          });
-
-        GlobalService.getUserRequests($scope.mainUser.id).
-          success(function (data) {
-            $scope.requests = {
-              toMe: [],
-              fromMe: []
-            };
-            var r = $scope.requests;
-            angular.forEach(data, function (request) {
-              if ($scope.mainUser.id == request.sender) {
-                // Means main user sent it
-                r.fromMe.push(request);
-              } else {
-                r.toMe.push(request);
-              }
-            });
-          }).
-          error(function (err) {
-            console.log(err);
-          });
-
-        GlobalService.getFriendRequests($scope.mainUser.id).
-          success(function (data) {
-            $scope.friendRequests = data;
-
-          }).
-          error(function (err) {
-            console.log(err);
-          });
-
-
-        GlobalService.getPaymentTypes($scope.mainUser.id).
-          success(function (data) {
-            console.log(data);
-            $scope.paymentTypes.card.push(data.creditCard);
-            $scope.paymentTypes.baccount.push(data.bankAccount);
-          });
-
-
+        getUserDependantData();
       });
 
+
+    }
+
+
+    $scope.$on('Update-All', function () {
+      if ($scope.mainUser) {
+        console.log('Updating All');
+        getUserDependantData();
+      }
+    });
+    /**
+     * Gets data from the backend using the global service.
+     * Called after
+     */
+    function getUserDependantData() {
+      GlobalService.getUsers().
+        success(function (data) {
+          $scope.users = data
+        }).
+        error(function (err) {
+          console.log('mega error');
+        });
+
+      GlobalService.getFriends($scope.mainUser.id).
+        success(function (data) {
+          $scope.friends = data;
+        }).
+        error(function (err) {
+          console.log(err);
+        });
+
+      GlobalService.getUserRequests($scope.mainUser.id).
+        success(function (data) {
+          $scope.requests = {
+            toMe: [],
+            fromMe: []
+          };
+          var r = $scope.requests;
+          angular.forEach(data, function (request) {
+            if ($scope.mainUser.id == request.sender) {
+              // Means main user sent it
+              r.fromMe.push(request);
+            } else {
+              r.toMe.push(request);
+            }
+          });
+        }).
+        error(function (err) {
+          console.log(err);
+        });
+
+      GlobalService.getFriendRequests($scope.mainUser.id).
+        success(function (data) {
+          $scope.friendRequests = data;
+
+        }).
+        error(function (err) {
+          console.log(err);
+        });
+
+
+      GlobalService.getPaymentTypes($scope.mainUser.id).
+        success(function (data) {
+          $scope.paymentTypes.card = data.creditCard;
+          $scope.paymentTypes.baccount = data.bankAccount;
+        });
 
     }
 
@@ -144,7 +156,6 @@ angular.module('paybookApp')
       // TODO: Remove, bogus waiting time
       $scope.paymentForm.loading = true;
       setTimeout(function () {
-        console.log('hey');
         $scope.paymentForm.loading = false;
         $scope.$apply();
       }, 500);
@@ -169,9 +180,38 @@ angular.module('paybookApp')
 
     };
 
+    $scope.pushAcceptFriendReq = function (user) {
+
+      //$scope.friendRequests = [];
+      //$scope.friends.push(user);
+
+      //Todo: Logic for when we have endpoint debugged
+      var pushObj = {
+        email: user.email
+      };
+      GlobalService.pushFriendRequestAccept($scope.mainUser.id, pushObj).
+        success(function () {
+          $scope.$broadcast('Update-All');
+          console.log('YAY');
+        });
+    };
 
     /**
+     * Helper function to get the last 4 digits of anything
+     * @param num
+     * @returns {*}
+     */
+    $scope.lastFour = function (num) {
+      if (typeof(num) != 'undefined') {
+        var str = num.toString();
+        return str.slice(-4);
+      }
+
+    };
+
+    /** #############################################
      * Actions related to payment modal
+     * ##########################################
      */
     $scope.showPaymentModal = function () {
       $scope.paymentTypeForm = {
@@ -198,6 +238,34 @@ angular.module('paybookApp')
         .modal('show');
     };
 
-    $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
+    /**
+     * Network operation.
+     * Help push a payment type.
+     *
+     * CURRENTLY ONLY WORKS FOR CCARDS
+     */
+    $scope.pushPaymentType = function () {
+      var data = $scope.paymentTypeForm;
+      var pushObj = {};
 
+      if (data.type.card) {
+        var cdata = data.cardData;
+        pushObj.ccv = cdata.ccv;
+        pushObj.ccnum = cdata.number;
+        var expiration = cdata.expiration.split('/');
+        pushObj.exp = expiration[1] + "-" + expiration[0] + "-01";
+      } else {
+        var baccData = data.accData;
+      }
+
+      console.log(pushObj);
+      GlobalService.pushPaymentType($scope.mainUser.id, pushObj).
+        success(function (data) {
+          $scope.$broadcast('Update-All');
+          $('#paymentTypeModal').modal('hide');
+        });
+    };
+
+
+    $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
   });

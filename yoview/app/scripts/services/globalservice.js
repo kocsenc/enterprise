@@ -80,6 +80,33 @@ angular.module('paybookApp')
         var muid = "/" + uid;
         var url = this.baseurl + this.user + muid + "/pay_types";
         return $http.get(url);
+      },
+
+
+      /* POSTING STUFF */
+
+      /**
+       * ccnum:
+       * ccv:
+       * exp: YYYY-MM-DD
+       * @param uid
+       * @param data - The data to push
+       */
+      pushPaymentType: function (uid, data) {
+        var muid = "/" + uid;
+        if (data.ccv) {
+          var url = this.baseurl + this.user + muid + "/pay_type/credit";
+          return $http.post(url, data);
+
+        }
+        //else {
+        //}
+      },
+
+      pushFriendRequestAccept: function (uid, data) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/acceptFriendRequest/";
+        return $http.post(url, data);
       }
 
     }

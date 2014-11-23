@@ -68,7 +68,7 @@
           <label>3. Amount</label>
 
           <div class="ui left labeled icon input">
-            <input placeholder="$0.00" type="text" ng-model="paymentForm.amount">
+            <input placeholder="0.00" type="text" ng-model="paymentForm.amount">
             <i class="dollar icon"></i>
           </div>
         </div>
@@ -96,35 +96,45 @@
           <i class="dropdown icon"></i>
           <i class="small user icon"></i>
           Friends
+          <div class="ui small orange label" ng-show="friendRequests.length > 0">
+            <i class="attention icon"></i>{{friendRequests.length}}
+          </div>
         </div>
         <div class="content">
 
-          <!-- TODO: Comment out when friend requests send out info -->
-          <!--&lt;!&ndash; Friend Requests &ndash;&gt;-->
-          <!--<table class="ui basic table" ng-show="friendRequests.length > 0">-->
-          <!--<thead>-->
-          <!--<tr>-->
-          <!--<th>Name</th>-->
-          <!--<th>Email</th>-->
-          <!--<th></th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-          <!--<tr ng-repeat="user in friendRequests">-->
-          <!--<td>{{user.name}}</td>-->
-          <!--<td>{{user.email}}</td>-->
-          <!--<td>-->
-          <!--<div class="ui blue button">-->
-          <!--accept request-->
-          <!--</div>-->
-          <!--</td>-->
+          <!-- Friend Requests -->
+          <div ng-show="friendRequests.length > 0">
+            <h3 class="ui dividing header">
+              Friend Requests
+            </h3>
+            <table class="ui basic table">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="user in friendRequests">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                  <div class="ui tiny icon green button" ng-click="pushAcceptFriendReq(user)">
+                    <i class="thumbs up icon"></i>
+                  </div>
+                </td>
 
-          <!--</tr>-->
-          <!--</tbody>-->
+              </tr>
+              </tbody>
 
-          <!--</table>-->
+            </table>
+          </div>
 
           <!-- Friends stuff -->
+          <h3 class="ui dividing header">
+            Friends
+          </h3>
           <table class="ui basic table">
             <thead>
             <tr>
@@ -250,25 +260,24 @@
           </div>
 
           <div class="ui fluid big animated divided list">
-            <div class="item" ng-repeat="card in paymentTypes.card" ng-hide="paymentTypes.card.length > 0">
+            <div class="item" ng-hide="paymentTypes.card === null">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
               <i class="payment icon"></i>
 
               <div class="content">
-
                 <div class="header">
                   Credit/Debit Card
                 </div>
                 <div class="description">
-                  Card Number: {{card.ccnum}}<br>
+                  Card Number: XXXX-XXXX-XXXX-{{lastFour(paymentTypes.card.ccnum)}}<br>
                   Expiration: XX-<b>2016</b>
                 </div>
               </div>
             </div>
 
-            <div class="item" ng-repeat="acc in paymentTypes.baccount">
+            <div class="item" ng-hide="paymentTypes.baccount === null">
               <div class="right floated red ui icon button">
                 <i class="remove circle icon"></i>
               </div>
@@ -280,7 +289,7 @@
                   BofA Checking Account
                 </div>
                 <div class="description">
-                  Account Number: XXXXXXX - <b>{{acc.routingNumber}}</b>
+                  Account Number: XXXXXXX - <b>{{paymentTypes.baccount.routingNumber}}</b>
                 </div>
               </div>
             </div>
@@ -370,7 +379,8 @@
       </div>
 
       <div class="right floated tiny green ui button"
-           ng-hide="paymentTypeForm.type.baccount && paymentTypeForm.type.card">
+           ng-show="paymentTypeForm.type.baccount || paymentTypeForm.type.card"
+           ng-click="pushPaymentType()">
         <i class="checkmark icon"></i>Add Payment Type
       </div>
     </div>
