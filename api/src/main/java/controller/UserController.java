@@ -18,7 +18,7 @@ import dao.PaymentTypeService;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
-
+import domain.BankAccount;
 import domain.CreditCard;
 import domain.FriendRequest;
 import java.sql.SQLException;
@@ -89,6 +89,11 @@ public class UserController {
     @RequestMapping(value = "/{id}/pay_type/credit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id) {
         return paymentTypeService.addCreditCard(cc, id);
+    }
+
+    @RequestMapping(value = "/{id}/pay_type/bank", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addBankAccount(@RequestBody BankAccount ba, @PathVariable int id) {
+        return paymentTypeService.addBankAccount(ba, id);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")

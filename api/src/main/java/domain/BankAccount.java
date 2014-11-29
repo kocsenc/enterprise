@@ -1,11 +1,15 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BankAccount {
 
   private final int routingNumber;
   private final long accountNumber;
 
-  public BankAccount(int routingNumber, Long accountNumber){
+  @JsonCreator
+  public BankAccount(@JsonProperty("routingNum") int routingNumber,@JsonProperty("accountNum") Long accountNumber){
     this.routingNumber = routingNumber;
     this.accountNumber = accountNumber;
   }
