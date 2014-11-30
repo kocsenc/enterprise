@@ -15,6 +15,7 @@ import java.util.List;
 import dao.UserService;
 import dao.RequestService;
 import dao.PaymentTypeService;
+import dto.FulfillDTO;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
@@ -138,6 +139,12 @@ public class UserController {
       req.setSender(id);
       req.setFulfilled(true);
       return requestService.postRequest(req);
+    }
+
+    @RequestMapping(value="/{id}/fulfill", method=RequestMethod.PUT, consumes="application/json")
+    public ResponseEntity<String> fulfillRequest(@RequestBody FulfillDTO fulfill, @PathVariable int id){
+      int rid = fulfill.getRequestId();
+      return requestService.fulfillRequest(rid,id);
     }
 
 }
