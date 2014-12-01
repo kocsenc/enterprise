@@ -15,10 +15,11 @@ import java.util.List;
 import dao.UserService;
 import dao.RequestService;
 import dao.PaymentTypeService;
+import dto.FulfillDTO;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
-
+import domain.BankAccount;
 import domain.CreditCard;
 import domain.FriendRequest;
 import java.sql.SQLException;
@@ -91,6 +92,11 @@ public class UserController {
         return paymentTypeService.addCreditCard(cc, id);
     }
 
+    @RequestMapping(value = "/{id}/pay_type/bank", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addBankAccount(@RequestBody BankAccount ba, @PathVariable int id) {
+        return paymentTypeService.addBankAccount(ba, id);
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> register(@RequestBody User user) throws SQLException {
         ResponseEntity<String> completed = userService.register(user);
@@ -125,14 +131,25 @@ public class UserController {
     @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
     public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
       req.setSender(id);
-      return requestService.postRequest(req);
+      boolean postRequest = requestService.postRequest(req);
+      if (postRequest == false){
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        return new ResponseEntity<String>(HttpStatus.CREATED);
+      }
     }
 
     @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
     public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
       req.setSender(id);
       req.setFulfilled(true);
-      return requestService.postRequest(req);
+      return requestService.payUser(req);
+    }
+
+    @RequestMapping(value="/{id}/fulfill", method=RequestMethod.PUT, consumes="application/json")
+    public ResponseEntity<String> fulfillRequest(@RequestBody FulfillDTO fulfill, @PathVariable int id){
+      int rid = fulfill.getRequestId();
+      return requestService.fulfillRequest(rid,id);
     }
 
 }
