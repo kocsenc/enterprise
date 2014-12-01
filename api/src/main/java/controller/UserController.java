@@ -131,14 +131,19 @@ public class UserController {
     @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
     public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
       req.setSender(id);
-      return requestService.postRequest(req);
+      boolean postRequest = requestService.postRequest(req);
+      if (postRequest == false){
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        return new ResponseEntity<String>(HttpStatus.CREATED);
+      }
     }
 
     @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
     public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
       req.setSender(id);
       req.setFulfilled(true);
-      return requestService.postRequest(req);
+      return requestService.payUser(req);
     }
 
     @RequestMapping(value="/{id}/fulfill", method=RequestMethod.PUT, consumes="application/json")

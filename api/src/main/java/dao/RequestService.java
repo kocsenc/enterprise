@@ -72,22 +72,34 @@ public class RequestService{
     return requests;
   }
 
-  public ResponseEntity<String> postRequest(Request request) {
+  public boolean postRequest(Request request) {
+    PreparedStatement statement = null;
+    boolean result = false;
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement("insert into Request values(null,?,?,?,?,?,?,?)");
-      preparedStatement.setInt(1,request.getSender());
-      preparedStatement.setInt(2,request.getReciever());
-      preparedStatement.setString(3,request.getDescription());
-      preparedStatement.setDouble(4,request.getAmount());
-      preparedStatement.setDate(5,request.getStartDate());
-      preparedStatement.setDate(6,request.getEndDate());
-      preparedStatement.setBoolean(7,request.getFulfilled());
-      preparedStatement.executeUpdate();
-      return new ResponseEntity<String>(HttpStatus.CREATED);
+      statement = connection.prepareStatement("insert into Request values(null,?,?,?,?,?,?,?)");
+      statement.setInt(1,request.getSender());
+      statement.setInt(2,request.getReciever());
+      statement.setString(3,request.getDescription());
+      statement.setDouble(4,request.getAmount());
+      statement.setDate(5,request.getStartDate());
+      statement.setDate(6,request.getEndDate());
+      statement.setBoolean(7,request.getFulfilled());
+      statement.executeUpdate();
+      result = true;
     } catch (SQLException e) {
       e.printStackTrace();
-      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+      result = false;
+    } finally {
+      try {
+        if (statement != null) {
+          statement.close();
+        }
+      } catch (SQLException e){
+        System.out.println("Error closing prepared statement. See stack trace below:");
+        e.printStackTrace();
+      }
     }
+    return result;
   }
 
   public ResponseEntity<String> fulfillRequest(int reqId, int userId) {
@@ -108,6 +120,23 @@ public class RequestService{
       return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR); 
     }
     return new ResponseEntity<String>(HttpStatus.CREATED);
+  }
+
+  public ResponseEntity<String> payUser(Request request) {
+    boolean withdraw = withdrawMoney(request.getReciever(),request.getAmount());
+    if (withdraw == false) {
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    boolean deposit = depositMoney(request.getSender(),request.getAmount());
+    if (deposit == false) {
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR); 
+    }
+    boolean post = postRequest(request);
+    if (post == false) {
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return new ResponseEntity<String>(HttpStatus.CREATED);
+
   }
 
   public Request getRequestById(int requestId){

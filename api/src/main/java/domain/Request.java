@@ -8,7 +8,7 @@ public class Request {
 
   private final Integer rid;
   private Integer sender;
-  private final Integer reciever;
+  private Integer reciever;
   private final String description;
   private final Double amount;
   private final Date startDate;
@@ -78,6 +78,10 @@ public class Request {
 
   public void setSender(int id){
     this.sender = id;
+  }
+
+  public void setReciever(int id){
+    this.reciever = id;
   }
 
 
