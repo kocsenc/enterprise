@@ -38,14 +38,12 @@ angular.module('paybookApp')
           error(function (userErr) {
             console.log('user Error');
           });
-
-
       },
-
 
       // Online Services
       baseurl: "/api",
       user: "/user",
+      camp: "/campaign",
 
       getUsers: function () {
         return $http.get(this.baseurl + this.user + "/all");
@@ -80,6 +78,56 @@ angular.module('paybookApp')
         var muid = "/" + uid;
         var url = this.baseurl + this.user + muid + "/pay_types";
         return $http.get(url);
+      },
+
+      getMyCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/campaigns";
+        return $http.get(url);
+      },
+
+      getFriendsCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/friend_campaigns";
+        return $http.get(url);
+      },
+
+      getContributedCampaigns: function (uid) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/contribute";
+        return $http.get(url);
+      },
+
+      /* POSTING STUFF */
+
+      /**
+       * ccnum:
+       * ccv:
+       * exp: YYYY-MM-DD
+       * @param uid
+       * @param data - The data to push
+       */
+      pushPaymentType: function (uid, data) {
+        var muid = "/" + uid;
+        if (data.ccv) {
+          var url = this.baseurl + this.user + muid + "/pay_type/credit";
+          return $http.post(url, data);
+
+        }
+        //else {
+        //}
+      },
+
+      pushFriendRequestAccept: function (uid, data) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/acceptFriendRequest/";
+        return $http.post(url, data);
+      },
+
+      pushAddFriend: function (uid, payload) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/addfriend/" + payload.id;
+        return $http.post(url, payload);
       }
 
     }

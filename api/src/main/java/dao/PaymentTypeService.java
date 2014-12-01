@@ -114,4 +114,87 @@ public class PaymentTypeService {
     return response;
   }
 
+  public ResponseEntity<String> addBankAccount(BankAccount ba, int userId){
+    boolean post = postBankAccount(ba);
+    if (post == false){
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    Integer bankAccountId = getBankAccountId(ba);
+    if (bankAccountId == null) {
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    boolean updatePaymentType = updatePaymentTypeBankAccount(bankAccountId, userId);
+    if (updatePaymentType == false){
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return new ResponseEntity<String>(HttpStatus.CREATED);
+  }
+
+  private boolean postBankAccount(BankAccount ba){
+    PreparedStatement postBAStatement = null;
+    boolean result = false;
+    try {
+      postBAStatement = connection.prepareStatement("insert into Bank_Account value(null,?,?)");
+      postBAStatement.setInt(1,ba.getRoutingNumber());
+      postBAStatement.setLong(2,ba.getAccountNumber());
+      postBAStatement.executeUpdate();
+      result = true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      result = false;
+    } finally {
+      closePreparedStatement(postBAStatement);
+    }
+    return result;
+  }
+
+  private Integer getBankAccountId(BankAccount ba) {
+    PreparedStatement getBAIdStatement = null;
+    Integer baId = null;
+    try {
+      getBAIdStatement = connection.prepareStatement("select baid from Bank_Account where routingnum = ? and accountnum = ?");
+      getBAIdStatement.setInt(1,ba.getRoutingNumber());
+      getBAIdStatement.setLong(2,ba.getAccountNumber());
+      ResultSet result = getBAIdStatement.executeQuery();
+      while (result.next()){
+        baId = result.getInt("baid");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      baId = null;
+    } finally {
+      closePreparedStatement(getBAIdStatement);
+    }
+    return baId;
+  }
+
+  private boolean updatePaymentTypeBankAccount(int baId, int userId){
+    PreparedStatement updatePayTypeStatement = null;
+    boolean result = false;
+    try {
+      updatePayTypeStatement = connection.prepareStatement("update Payment_Type set bankaccount = ? where uid = ?");
+      updatePayTypeStatement.setInt(1,baId);
+      updatePayTypeStatement.setInt(2,userId);
+      updatePayTypeStatement.executeUpdate();
+      result = true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      result = false;
+    } finally {
+      closePreparedStatement(updatePayTypeStatement);
+    }
+    return result;
+  }
+
+  private void closePreparedStatement(PreparedStatement pStatement){
+    if (pStatement != null){
+      try {
+        pStatement.close();
+      } catch (SQLException e) {
+        System.out.println("Error closing prepared statement. See stack trace below:");
+        e.printStackTrace();
+      }
+    }
+  }
+
 }

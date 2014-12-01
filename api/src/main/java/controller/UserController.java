@@ -14,10 +14,11 @@ import java.util.List;
 import dao.UserService;
 import dao.RequestService;
 import dao.PaymentTypeService;
+import dto.FulfillDTO;
 import domain.User;
 import domain.Request;
 import domain.PaymentType;
-
+import domain.BankAccount;
 import domain.CreditCard;
 import domain.FriendRequest;
 import java.sql.SQLException;
@@ -33,80 +34,86 @@ public class UserController {
 
     @RequestMapping("/all")
     public List<User> getAllUsers() {
-      List<User> users=userService.getAllUsers();
-      return users;
+        List<User> users = userService.getAllUsers();
+        return users;
     }
 
     @RequestMapping("/{id}/getuser")
-    public User getUser(@PathVariable int id){
+    public User getUser(@PathVariable int id) {
         User user = userService.getUser(id);
         return user;
     }
 
     @RequestMapping("/{id}/requests")
-    public List<Request> getRequestsById(@PathVariable int id){
-      List<Request> requests = requestService.getRequestsById(id);
-      return requests;
+    public List<Request> getRequestsById(@PathVariable int id) {
+        List<Request> requests = requestService.getRequestsById(id);
+        return requests;
     }
 
     @RequestMapping("/{id}/payments")
-    public List<Request> getPaymentsById(@PathVariable int id){
-      List<Request> requests = requestService.getPaymentsById(id);
-      return requests;
+    public List<Request> getPaymentsById(@PathVariable int id) {
+        List<Request> requests = requestService.getPaymentsById(id);
+        return requests;
     }
 
     @RequestMapping("/{id}/pay_types")
-    public PaymentType getPaymentTypeById(@PathVariable int id){
-      PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
-      return paymentType;
+    public PaymentType getPaymentTypeById(@PathVariable int id) {
+        PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
+        return paymentType;
     }
 
     @RequestMapping("/{id}/friends")
-    public List<User> getFriends(@PathVariable int id){
-        List<User> users=userService.getFriends(id);
+    public List<User> getFriends(@PathVariable int id) {
+        List<User> users = userService.getFriends(id);
         return users;
     }
 
     @RequestMapping("/{id}/trusted_friends")
-    public List<User> getTrustedFriends(@PathVariable int id){
-        List<User> users=userService.getTrustedFriends(id);
+    public List<User> getTrustedFriends(@PathVariable int id) {
+        List<User> users = userService.getTrustedFriends(id);
         return users;
     }
 
-    @RequestMapping("/{id}/addfriend/{friend_id}")
+    @RequestMapping(value = "/{id}/addfriend/{friend_id}", method = RequestMethod.POST)
     public ResponseEntity<String> addFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
         ResponseEntity<String> completed = userService.addFriend(id, friend_id);
         return completed;
     }
 
-    @RequestMapping("/{id}/trustfriend/{friend_id}")
+    @RequestMapping(value = "/{id}/trustfriend/{friend_id}", method = RequestMethod.POST)
     public ResponseEntity<String> trustFriend(@PathVariable int id, @PathVariable int friend_id) throws SQLException{
         ResponseEntity<String> completed = userService.trustFriend(id, friend_id);
         return completed;
     }
 
-    @RequestMapping(value="/{id}/pay_type/credit", method=RequestMethod.POST, consumes="application/json")
-    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id){
-      return paymentTypeService.addCreditCard(cc,id);
+    @RequestMapping(value = "/{id}/pay_type/credit", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addCreditCard(@RequestBody CreditCard cc, @PathVariable int id) {
+        return paymentTypeService.addCreditCard(cc, id);
     }
 
-    @RequestMapping(value = "/register", method =  RequestMethod.POST, consumes ="application/json")
-    public ResponseEntity<String> register(@RequestBody User user) throws SQLException{
+    @RequestMapping(value = "/{id}/pay_type/bank", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addBankAccount(@RequestBody BankAccount ba, @PathVariable int id) {
+        return paymentTypeService.addBankAccount(ba, id);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> register(@RequestBody User user) throws SQLException {
         ResponseEntity<String> completed = userService.register(user);
         return completed;
     }
 
     @RequestMapping(value = "/{id}/friendrequests")
-    public List<User> getFriendRequests(@PathVariable int id){
+    public List<User> getFriendRequests(@PathVariable int id) {
         List<User> fReqs = userService.getFriendRequests(id);
         return fReqs;
     }
 
     @RequestMapping(value = "/{id}/trustrequests")
-    public List<User> getTrustRequests(@PathVariable int id){
+    public List<User> getTrustRequests(@PathVariable int id) {
         List<User> tReqs = userService.getTrustRequests(id);
         return tReqs;
     }
+
 
     @RequestMapping(value = "/{id}/acceptFriendRequest/", consumes="application/json")
     public ResponseEntity<String> acceptFriendRequest(@PathVariable int id, @RequestBody User friend)throws SQLException{
@@ -120,18 +127,29 @@ public class UserController {
         return accepted;
     }
 
-    // Commented out, incomplete code
-//    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
-//    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
-//      req.setSender(id);
-//      return requestService.postRequest(req);
-//    }
-//
-//    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
-//    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
-//      req.setSender(id);
-//      req.setFulfilled(true);
-//      return requestService.postRequest(req);
-//    }
+    @RequestMapping(value="/{id}/charge", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> createRequest(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      boolean postRequest = requestService.postRequest(req);
+      if (postRequest == false){
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        return new ResponseEntity<String>(HttpStatus.CREATED);
+      }
+    }
+
+    @RequestMapping(value="/{id}/pay", method=RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<String> payUser(@RequestBody Request req, @PathVariable int id){
+      req.setSender(id);
+      req.setFulfilled(true);
+      return requestService.payUser(req);
+    }
+
+    @RequestMapping(value="/{id}/fulfill", method=RequestMethod.PUT, consumes="application/json")
+    public ResponseEntity<String> fulfillRequest(@RequestBody FulfillDTO fulfill, @PathVariable int id){
+      int rid = fulfill.getRequestId();
+      return requestService.fulfillRequest(rid,id);
+    }
+
 }
 
