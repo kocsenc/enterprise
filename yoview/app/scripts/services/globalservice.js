@@ -118,6 +118,24 @@ angular.module('paybookApp')
         //}
       },
 
+      /**
+       * Actually pay someone
+       * @param uid
+       * @param data
+       * @returns {HttpPromise}
+       */
+      pushPay: function (uid, data) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/pay";
+        return $http.post(url, data);
+      },
+
+      pushRequestMoney: function (uid, data) {
+        var muid = "/" + uid;
+        var url = this.baseurl + this.user + muid + "/charge";
+        return $http.post(url, data);
+      },
+
       pushFriendRequestAccept: function (uid, data) {
         var muid = "/" + uid;
         var url = this.baseurl + this.user + muid + "/acceptFriendRequest/";

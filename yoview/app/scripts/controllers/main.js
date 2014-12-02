@@ -175,13 +175,13 @@ angular.module('paybookApp')
      * Submitting a payment request
      */
     $scope.submitPaymentRequest = function () {
-      // TODO: Remove, bogus waiting time
-      $scope.paymentForm.loading = true;
-      setTimeout(function () {
-        $scope.paymentForm.loading = false;
-        $scope.$apply();
-      }, 500);
-      // END TODO
+      //// TODO: Remove, bogus waiting time
+      //$scope.paymentForm.loading = true;
+      //setTimeout(function () {
+      //  $scope.paymentForm.loading = false;
+      //  $scope.$apply();
+      //}, 500);
+      //// END TODO
 
 
       var data = $scope.paymentForm;
@@ -195,17 +195,23 @@ angular.module('paybookApp')
       console.log(pushData);
       //Now you can submit depending on payment form
       if (data.type.pay) {
-        // Post to payment
+        GlobalService.pushPay($scope.mainUser.id, pushData).
+          success(function (data) {
+            console.log("success pay!");
+            $scope.$broadcast('Update-All');
+          });
       } else {
         // Post to request
+        GlobalService.pushRequestMoney($scope.mainUser.id, pushData).
+          success(function (data) {
+            console.log("success pay!");
+            $scope.$broadcast('Update-All');
+          });
       }
 
     };
 
     $scope.pushAcceptFriendReq = function (user) {
-
-
-      //Todo: Logic for when we have endpoint debugged
       var pushObj = {
         email: user.email,
         name: user.name
