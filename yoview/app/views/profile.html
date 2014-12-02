@@ -7,10 +7,10 @@
 
   <div class="field">
     <label>Email</label>
-    <input placeholder="Email" type="text">
+    <input placeholder="Email" type="text" ng-model="loginForm.user">
   </div>
   <div class="field"><label>Password</label>
-    <input type="password">
+    <input type="password" ng-model="loginForm.pass">
   </div>
-  <div class="ui green submit button">Submit</div>
+  <div class="ui green submit button" ng-click="attemptLogin()">Submit</div>
 </div>
