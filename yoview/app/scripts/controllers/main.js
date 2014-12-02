@@ -23,7 +23,7 @@ angular.module('paybookApp')
      */
     function initRequests() {
 
-      var promise = GlobalService.getUser("2");
+      var promise = GlobalService.getUser("1");
       promise.then(function (result) {
         GlobalService.setGlobalUser(result);
         $scope.mainUser = GlobalService.globalUser;
