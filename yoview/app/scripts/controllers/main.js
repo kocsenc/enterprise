@@ -116,6 +116,7 @@ angular.module('paybookApp')
 
       GlobalService.getContributedCampaigns($scope.mainUser.id).
         success(function (data) {
+          console.log(data)
           $scope.campaigns.contributed = data;
         });
 

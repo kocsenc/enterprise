@@ -94,7 +94,7 @@ angular.module('paybookApp')
 
       getContributedCampaigns: function (uid) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.camp + muid + "/contribute";
+        var url = this.baseurl + this.camp + muid + "/contributions";
         return $http.get(url);
       },
 

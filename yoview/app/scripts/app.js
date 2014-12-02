@@ -40,6 +40,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/campaigns', {
+        templateUrl: 'views/campaigns.html',
+        controller: 'CampaignsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
