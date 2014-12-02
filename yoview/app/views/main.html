@@ -258,12 +258,19 @@
           <div class="ui stackable items">
             <div class="item" style="min-height: 10px" ng-repeat="camp in campaigns.mine">
               <div class="content">
-                <div class="meta">{{camp.endDate}}</div>
+                <div class="meta">Ends {{camp.endDate}}</div>
                 <div class="name">{{camp.title}}</div>
-                <p class="description">{{camp.description}}</p>
+                <p class="description">{{camp.description}}
+                  <!--<div class="ui progress active" data-percent="45">-->
+                  <!--<div class="bar">-->
+                  <!--<div class="progress"></div>-->
+                  <!--</div>-->
+                  <!--<div class="label">Progress {{calculatePercent(camp.wallet, camp.goal)}}%</div>-->
+                  <!--</div>-->
+                </p>
               </div>
               <div class="extra">
-                ${{camp.wallet}}/${{camp.goal}} gathered
+                ${{camp.wallet}}/${{camp.goal}} gathered ({{calculatePercent(camp.wallet, camp.goal)}}%)
               </div>
             </div>
           </div>

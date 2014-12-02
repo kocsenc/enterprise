@@ -107,7 +107,6 @@ angular.module('paybookApp')
       GlobalService.getMyCampaigns($scope.mainUser.id).
         success(function (data) {
           $scope.campaigns.mine = data;
-          console.log(data);
         });
 
       GlobalService.getFriendsCampaigns($scope.mainUser.id).
@@ -303,6 +302,10 @@ angular.module('paybookApp')
         })
     };
 
+    $scope.calculatePercent = function (num, dem) {
+      var math = (num / dem) * 100;
+      return math;
+    };
 
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
   });
