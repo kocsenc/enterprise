@@ -82,19 +82,19 @@ angular.module('paybookApp')
 
       getMyCampaigns: function (uid) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.user + muid + "/campaigns";
+        var url = this.baseurl + this.camp + muid + "/campaigns";
         return $http.get(url);
       },
 
       getFriendsCampaigns: function (uid) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.user + muid + "/friend_campaigns";
+        var url = this.baseurl + this.camp + muid + "/friend_campaigns";
         return $http.get(url);
       },
 
       getContributedCampaigns: function (uid) {
         var muid = "/" + uid;
-        var url = this.baseurl + this.user + muid + "/contribute";
+        var url = this.baseurl + this.camp + muid + "/contribute";
         return $http.get(url);
       },
 

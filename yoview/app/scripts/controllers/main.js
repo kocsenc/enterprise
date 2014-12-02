@@ -106,7 +106,8 @@ angular.module('paybookApp')
 
       GlobalService.getMyCampaigns($scope.mainUser.id).
         success(function (data) {
-          $scope.campaigns.mine = data
+          $scope.campaigns.mine = data;
+          console.log(data);
         });
 
       GlobalService.getFriendsCampaigns($scope.mainUser.id).
