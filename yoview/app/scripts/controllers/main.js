@@ -23,7 +23,13 @@ angular.module('paybookApp')
      */
     function initRequests() {
 
-      var promise = GlobalService.getUser("1");
+      var user = GlobalService.globalUser;
+      if (user !== null) {
+        var promise = GlobalService.getUser(user.id);
+      } else {
+        var promise = GlobalService.getUser("1");
+      }
+
       promise.then(function (result) {
         GlobalService.setGlobalUser(result);
         $scope.mainUser = GlobalService.globalUser;
@@ -34,6 +40,9 @@ angular.module('paybookApp')
 
     }
 
+    $scope.$on('Login', function () {
+      console.log("motherfuckers");
+    });
 
     $scope.$on('Update-All', function () {
       if ($scope.mainUser) {
