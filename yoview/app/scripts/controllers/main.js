@@ -186,21 +186,31 @@ angular.module('paybookApp')
 
       var data = $scope.paymentForm;
 
-      var pushData = {
-        receiver: data.friendSearch,
-        amount: data.amount,
-        description: data.description
-      };
 
       console.log(pushData);
       //Now you can submit depending on payment form
       if (data.type.pay) {
-        GlobalService.pushPay($scope.mainUser.id, pushData).
+        var pushData = {
+          receiver: $scope.mainUser.id,
+          amount: data.amount,
+          description: data.description
+        };
+
+        var receiverEmail = getEmailFromId(data.friendSearch);
+
+        GlobalService.pushPay(receiverEmail, pushData).
           success(function (data) {
             console.log("success pay!");
             $scope.$broadcast('Update-All');
           });
       } else {
+
+        var pushData = {
+          receiver: data.friendSearch,
+          amount: data.amount,
+          description: data.description
+        };
+
         // Post to request
         GlobalService.pushRequestMoney($scope.mainUser.id, pushData).
           success(function (data) {
@@ -210,6 +220,14 @@ angular.module('paybookApp')
       }
 
     };
+
+    function getEmailFromId(id) {
+      angular.forEach($scope.users, function (user) {
+        if (id == user.id) {
+          return user.email;
+        }
+      });
+    }
 
     $scope.pushAcceptFriendReq = function (user) {
       var pushObj = {
