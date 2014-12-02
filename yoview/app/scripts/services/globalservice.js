@@ -107,15 +107,16 @@ angular.module('paybookApp')
        * @param uid
        * @param data - The data to push
        */
-      pushPaymentType: function (uid, data) {
+      pushPaymentTypeService: function (uid, data) {
         var muid = "/" + uid;
         if (data.ccv) {
           var url = this.baseurl + this.user + muid + "/pay_type/credit";
           return $http.post(url, data);
-
         }
-        //else {
-        //}
+        else {
+          var url = this.baseurl + this.user + muid + "/pay_type/bank";
+          return $http.post(url, data);
+        }
       },
 
       /**

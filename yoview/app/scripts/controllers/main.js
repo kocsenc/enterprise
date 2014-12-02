@@ -23,7 +23,7 @@ angular.module('paybookApp')
      */
     function initRequests() {
 
-      var promise = GlobalService.getUser("1");
+      var promise = GlobalService.getUser("2");
       promise.then(function (result) {
         GlobalService.setGlobalUser(result);
         $scope.mainUser = GlobalService.globalUser;
@@ -116,7 +116,6 @@ angular.module('paybookApp')
 
       GlobalService.getContributedCampaigns($scope.mainUser.id).
         success(function (data) {
-          console.log(data)
           $scope.campaigns.contributed = data;
         });
 
@@ -285,10 +284,13 @@ angular.module('paybookApp')
         pushObj.exp = expiration[1] + "-" + expiration[0] + "-01";
       } else {
         var baccData = data.accData;
+
+        pushObj.routingNum = baccData.routing;
+        pushObj.accountNum = baccData.number;
       }
 
       console.log(pushObj);
-      GlobalService.pushPaymentType($scope.mainUser.id, pushObj).
+      GlobalService.pushPaymentTypeService($scope.mainUser.id, pushObj).
         success(function () {
           $scope.$broadcast('Update-All');
           $('#paymentTypeModal').modal('hide');
