@@ -1,14 +1,13 @@
-<h1 class="ui dividing header">Your Contributions{{mainUser.id}}</h1>
+<h1 class="ui dividing header">Your Contributions</h1>
 <div class="ui stackable items">
   <div class="item" style="min-height: 10px" ng-repeat="camp in campaigns.contributed">
     <div class="content">
-      <div class="meta">Ends {{camp.endDate}}</div>
-      <div class="name">{{camp.title}}</div>
-      <p class="description">{{camp.description}}
+      <div class="name">{{camp.campaignTitle}}</div>
+      <p class="description">{{camp.campaignDescription}}
       </p>
     </div>
     <div class="extra">
-      ${{camp.wallet}}/${{camp.goal}} gathered ({{calculatePercent(camp.wallet, camp.goal)}}%)
+      You contributed ${{camp.amount}}
     </div>
   </div>
 </div>

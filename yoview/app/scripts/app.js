@@ -42,7 +42,7 @@ angular
       })
       .when('/campaigns', {
         templateUrl: 'views/campaigns.html',
-        controller: 'CampaignsCtrl'
+        controller: 'MainCtrl'
       })
       .otherwise({
         redirectTo: '/'

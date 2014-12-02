@@ -308,5 +308,12 @@ angular.module('paybookApp')
       return math;
     };
 
+    $scope.refreshModal = function () {
+      $scope.paymentTypeForm.help = !$scope.paymentTypeForm.help;
+      setTimeout(function () {
+        $('#paymentTypeModal').modal('refresh');
+      }, 150);
+    };
+
     $('.ui.accordion').accordion().accordion('setting', {exclusive: false});
   });

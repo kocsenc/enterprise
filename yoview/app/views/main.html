@@ -395,14 +395,14 @@
                src="http://static.nationwide.com/static/Bank_Check.gif?r=40">
         </div>
         <div class="field">
-          <label>Routing Number <i class="help icon" ng-click="paymentTypeForm.help = !paymentTypeForm.help;"></i>
+          <label>Routing Number <i class="help icon" ng-click="refreshModal()"></i>
           </label>
           <input ng-model="paymentTypeForm.accData.routing" type="text" maxlength="9" minlength="9" name="routingNumber"
                  placeholder="044-072-324">
         </div>
         <div class="field">
           <label>Account Number <i class="help icon"
-                                   ng-click="paymentTypeForm.help = !paymentTypeForm.help;"></i></label>
+                                   ng-click="refreshModal()"></i></label>
           <input ng-model="paymentTypeForm.accData.number" type="text" maxlength="17" minlength="3" name="accountNumber"
                  placeholder="999-123-456-789">
         </div>
