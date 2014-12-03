@@ -71,23 +71,3 @@ Copy the nginx config file from the *deploy* directory
 Restart nginx
 
     sudo service nginx restart
-
-### API Endpoints
-
-#### /api/user/all : `GET`
-  
-Returns a collection of all users.
-
-#### /api/user/{id}/requests : `GET`
-
-Returns a collection of all requests for the user associated with the given id.
-
-#### /api/user/{id}/payments : `GET`
-
-Returns a collection of all payments for the user associated with the given id.
-
-#### /api/user/{id}/pay_types : `GET`
-
-Returns a collection of types of payments for the user associated with the given id.
-
-
