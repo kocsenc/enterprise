@@ -15,21 +15,29 @@ angular.module('paybookApp')
       pass: ""
     };
 
+    $scope.error = false;
+
     $scope.attemptLogin = function () {
       var userEmail = $scope.loginForm.user;
 
       GlobalService.getUsers().
         success(function (data) {
+          var found = false;
           angular.forEach(data, function (user) {
             if (user.email === userEmail) {
+              found = true;
               console.log(user);
               $scope.$broadcast('Login');
               GlobalService.setGlobalUser(user);
               $location.path("#/main");
-              return;
             }
-          })
-        });
+          });
+
+          if (!found) {
+            $scope.error = true;
+          }
+
+        })
 
     }
   });

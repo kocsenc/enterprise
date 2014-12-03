@@ -14,6 +14,8 @@ angular.module('paybookApp')
       email: ""
     };
 
+    $scope.error = false;
+
 
     $scope.registerUser = function () {
       var url = "/api/user/register";
@@ -25,7 +27,7 @@ angular.module('paybookApp')
 
         }).
         error(function (err) {
-          console.log("error!");
+          $scope.error = true;
         });
 
 
