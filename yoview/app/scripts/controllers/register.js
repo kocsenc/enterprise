@@ -25,7 +25,7 @@ angular.module('paybookApp')
 
         }).
         error(function (err) {
-          console.log(err);
+          console.log("error!");
         });
 
 

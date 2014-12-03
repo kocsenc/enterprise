@@ -25,7 +25,7 @@ angular.module('paybookApp')
               console.log(user);
               $scope.$broadcast('Login');
               GlobalService.setGlobalUser(user);
-              $location.path("#/main")
+              $location.path("#/main");
               return;
             }
           })
