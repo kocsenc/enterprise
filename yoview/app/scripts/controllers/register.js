@@ -23,7 +23,7 @@ angular.module('paybookApp')
       $http.post(url, $scope.registerForm).
         success(function (data) {
           console.log('success');
-          $location.path("#/profile")
+          $location.path("/profile")
 
         }).
         error(function (err) {
