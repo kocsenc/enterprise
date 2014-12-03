@@ -13,15 +13,17 @@
   </div>
   <div class="field">
     <label>Name</label>
-    <input placeholder="First Last" type="text">
+    <input placeholder="First Last" type="text" ng-model="registerForm.name">
   </div>
   <div class="field">
     <label>Email</label>
-    <input placeholder="joshua@paybook.com" type="text">
+    <input placeholder="joshua@paybook.com" type="text" ng-model="registerForm.email">
   </div>
   <div class="field">
     <label>Password</label>
     <input type="password">
   </div>
-  <div class="ui blue submit button capital">Register</div>
+  <div class="ui blue submit button capital" ng-click="registerUser()">
+    Register
+  </div>
 </div>

@@ -8,10 +8,26 @@
  * Controller of the paybookApp
  */
 angular.module('paybookApp')
-  .controller('RegisterCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('RegisterCtrl', function ($scope, $http, $location) {
+    $scope.registerForm = {
+      name: "",
+      email: ""
+    };
+
+
+    $scope.registerUser = function () {
+      var url = "/api/user/register";
+
+      $http.post(url, $scope.registerForm).
+        success(function (data) {
+          console.log('success');
+          $location.path("#/profile")
+
+        }).
+        error(function (err) {
+          console.log(err);
+        });
+
+
+    };
   });

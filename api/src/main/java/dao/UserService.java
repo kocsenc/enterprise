@@ -203,10 +203,11 @@ public class UserService {
             }
             else{
                 //connection.setAutoCommit(false);
-                String registerString = "insert into User values(?,NULL,?,'test',0.00)";
+                String registerString = "insert into User values(?,NULL,?,'test',0.00,?)";
                 registerStatement = connection.prepareStatement(registerString);
                 registerStatement.setString(1, user.getName());
                 registerStatement.setString(2, user.getEmail());
+                registerStatement.setString(3, "");
                 registerStatement.executeUpdate();
             }
 
