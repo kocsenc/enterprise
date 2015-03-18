@@ -2,10 +2,12 @@ Paybook
 ==========
 
 For SWEN343 - Enterprise Software
+This is a enterprise project that mimics functionality of peer to peer payment services.
+It uses Sprint.io as a backend framework to build a REST API.
+
+* This project is no longer maintained. *
 
 ## Setup and Usage
-
-You can play around with a live demo of the project [here](http://vm343a.se.rit.edu)
 
 ### Installation Prerequisites
 
